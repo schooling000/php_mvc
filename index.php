@@ -1,27 +1,31 @@
 <?php
-# define root_path;
-define('ROOT_PATH', __DIR__);
-?>
 
-<form class="form-horizontal" name="contact_form" id="contact_form" method="post" action="">
-<input type="hidden" name="mode" value="login" >
-<fieldset>
-<div class="form-group">
-<label class="col-lg-2 control-label" for="username"><span class="required">*</span>Username:</label>
-<div class="col-lg-6">
-<input type="text" value="" placeholder="User Name" id="username" class="form-control" name="username" required="" >
-</div>
-</div>
-<div class="form-group">
-<label class="col-lg-2 control-label" for="user_password"><span class="required">*</span>Password:</label>
-<div class="col-lg-6">
-<input type="password" value="" placeholder="Password" id="user_password" class="form-control" name="user_password" required="" >
-</div>
-</div>
-<div class="form-group">
-<div class="col-lg-6 col-lg-offset-2">
-<button class="btn btn-primary" type="submit">Submit</button> 
-</div>
-</div>
-</fieldset>
-</form>
+# KHỞI TẠO PHIÊN LÀM VIỆC
+session_start();
+
+# ĐỊNH NGHĨA CÁC HẰNG SỐ TOÀN CỤC
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT_PATH', dirname(__FILE__));
+
+# LẤY THÔNG TIN TRÊN THANH URL
+$url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'], '/')) : [];
+
+
+require_once ROOT_PATH . DS . 'lib' . DS . 'help_function.php';
+require_once ROOT_PATH . DS . 'config' . DS . 'config.php';
+
+spl_autoload_register(function ($ClassName) {
+    if (file_exists(ROOT_PATH . DS . 'core' . DS . $ClassName . '.php')) {
+        require_once ROOT_PATH . DS . 'core' . DS . $ClassName . '.php';
+    } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'controllers' . DS . $ClassName . '.php')) {
+        require_once ROOT_PATH . DS . 'app' . DS . 'controllers' . DS . $ClassName . '.php';
+    } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'models' . DS . $ClassName . '.php')) {
+        require_once ROOT_PATH . DS . 'app' . DS . 'models' . DS . $ClassName . '.php';
+    } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'views' . DS . $ClassName . '.php')) {
+        require_once ROOT_PATH . DS . 'app' . DS . 'views' . DS . $ClassName . '.php';
+    } else {
+        echo 'Không Tìm Thấy File Chứa Class Với Tên ' . $ClassName;
+    }
+});
+
+Router::route($url);
