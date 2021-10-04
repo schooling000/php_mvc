@@ -5,7 +5,7 @@
         echo '</pre>';
     }
 
-    function var_dump_die($valueble){
+    function dnd($valueble){
         echo '<pre>';
         var_dump($valueble);
         echo '</pre>';
