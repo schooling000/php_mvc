@@ -8,7 +8,7 @@
         private $_layout = DEFAULT_LAYOUT;
         private $_htmlBuffer;
 
-        public function render($WebPagePath = '')
+        public function render($WebPagePath = '', $data = [])
         {
             $validate_view_path = explode('/', $WebPagePath);
             $view_path = implode(DS, $validate_view_path);
