@@ -1,5 +1,5 @@
 <?php
-class MDang_nhap extends Models{
+class MDang_nhap{
 
     public static function kiem_tra_ten_dang_nhap($tai_khoan)
     {

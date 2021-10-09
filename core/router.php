@@ -7,7 +7,7 @@ class Router
 
     public static function route($url)
     {
-        if (!isset($_SESSION['nguoi_dung']) && !empty($_SESSION['nguoi_dung'])) {
+        if (!isset($_SESSION['nguoi_dung']) || !empty($_SESSION['nguoi_dung'])) {
 
             if (class_exists(self::$_controller)) {
 

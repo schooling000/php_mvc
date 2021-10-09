@@ -67,6 +67,7 @@ INSERT INTO TTINH_NANG(
     FDUOC_PHEP_XOA,
     FTINH_NANG
 ) VALUES 
-    ('NGUOI_QUAN_TRI_HE_THONG', 'LICH_HEN_MO_PHONG_KHAM_NGOAI', 'LỊCH HẸN MỔ PHÒNG KHÁM', 'TRUE', 'TRUE', 'TRUE' , ''),
-    ('NGUOI_QUAN_TRI_HE_THONG', 'HO_CHAN_DUYET_MO', 'HỘI CHẨN DUYỆT MỔ', 'TRUE', 'TRUE', 'TRUE' , ''),
-    ('NGUOI_QUAN_TRI_HE_THONG', 'KHAM_TIEN_ME', 'KHÁM TIỀN MÔ', 'TRUE', 'TRUE', 'TRUE' , '');
+    ('NGUOI_QUAN_TRI_HE_THONG', 'LICH_MO', 'LỊCH MỔ', 'TRUE', 'TRUE', 'TRUE' , './php_mvc/lich_mo/xem_lich_mo/'),
+    ('NGUOI_QUAN_TRI_HE_THONG', 'HEN_MO', 'HẸN MỔ', 'TRUE', 'TRUE', 'TRUE' , './php_mvc/hen_mo/xem_hen_mo/'),
+    ('NGUOI_QUAN_TRI_HE_THONG', 'DUYET_MO', 'DUYỆT MỔ', 'TRUE', 'TRUE', 'TRUE' , './php_mvc/duyet_mo/xem_duyet_mo/'),
+    ('NGUOI_QUAN_TRI_HE_THONG', 'TIEN_ME', 'TIỀN MÊ', 'TRUE', 'TRUE', 'TRUE' , './php_mvc/tien_me/xem_tien_me/'),;

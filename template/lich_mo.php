@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 <body>
     <div class="w3-bar w3-black">
@@ -13,7 +16,7 @@
         <a class="w3-bar-item w3-button w3-text-red w3-right" href=""><i class="fa fa-power-off"></i></a>
     </div>
 
-    <div class="w3-sidebar w3-card-4 w3-hide-small w3-animate-left" id="sidebar" style="width:200px;">
+    <div class="w3-sidebar w3-card-4 w3-hide-small w3-hide-medium w3-animate-left" id="sidebar" style="width:200px;">
         <div class="w3-bar-block">
             <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-list-ul"></i>  Lịch mổ</a>
             <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-list-ul"></i>  Hẹn mổ</a>
@@ -66,8 +69,8 @@
                     <td>1 ĐV</td>
                     <td>20/10/2021</td>
                     <td>
-                        <a class="w3-button w3-green w3-round" href="http://">Sửa</a>
-                        <a class="w3-button w3-red w3-round" href="http://">Xóa</a>
+                        <button class="w3-button w3-green w3-round" onclick="document.getElementById('hop_thoai_sua').style.display='block'">Sửa</button>
+                        <button class="w3-button w3-red w3-round" onclick="document.getElementById('hop_thoai_xoa').style.display='block'">Xóa</button>
                     </td>
                 </tr>
 
@@ -205,13 +208,13 @@
         </div>
     </div>
 
-    
+
     <!-- modal sửa -->
-    <div id="hop_thoai_sửa" class="w3-modal w3-small">
+    <div id="hop_thoai_sua" class="w3-modal w3-small">
         <div class="w3-modal-content" style="width:50%; border-radius: 5px;">
 
-            <header class="w3-container w3-blue" style="border-radius: 5px 5px 0px 0px;">
-                <span onclick="document.getElementById('hop_thoai_sửa').style.display='none'" class="w3-button w3-display-topright" style="border-radius: 0px 5px;">&times;</span>
+            <header class="w3-container w3-green" style="border-radius: 5px 5px 0px 0px;">
+                <span onclick="document.getElementById('hop_thoai_sua').style.display='none'" class="w3-button w3-display-topright" style="border-radius: 0px 5px;">&times;</span>
                 <h2>Thêm lịch mổ</h2>
             </header>
 
@@ -324,141 +327,44 @@
                     </div>
 
                     <div class="w3-margin">
-                        <button class="w3-button w3-blue w3-round w3-block" type="submit">Thêm</button>
+                        <button class="w3-button w3-green w3-round w3-block" type="submit">Sửa</button>
                     </div>
                 </form>
             </div>
 
-            <footer class="w3-container w3-blue" style="border-radius: 0px 0px 5px 5px;">
+            <footer class="w3-container w3-green" style="border-radius: 0px 0px 5px 5px;">
                 <p>Modal Footer</p>
             </footer>
 
         </div>
     </div>
 
-    <div id="hop_thoai_them" class="w3-modal w3-small">
-        <div class="w3-modal-content" style="width:50%; border-radius: 5px;">
+    <div id="hop_thoai_xoa" class="w3-modal w3-small">
+        <div class="w3-modal-content" style="border-radius: 5px;">
 
-            <header class="w3-container w3-blue" style="border-radius: 5px 5px 0px 0px;">
-                <span onclick="document.getElementById('hop_thoai_them').style.display='none'" class="w3-button w3-display-topright" style="border-radius: 0px 5px;">&times;</span>
-                <h2>Thêm lịch mổ</h2>
+            <header class="w3-container w3-red" style="border-radius: 5px 5px 0px 0px;">
+                <span onclick="document.getElementById('hop_thoai_xoa').style.display='none'" class="w3-button w3-display-topright" style="border-radius: 0px 5px;">&times;</span>
+                <h2>Xóa Lịch Mổ</h2>
             </header>
 
             <div class="w3-container">
                 <form action="" method="post">
-                    <div class="w3-margin">
-                        <label for="">Họ tên bệnh nhân</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="ho_ten_benh_nhan">
+                    <div class="w3-margin w3-center">
+                        <h3>Bạn có muốn xóa thông tin này không</h3>
                     </div>
 
-                    <div class="w3-margin">
-                        <label for="">Giới tính</label>
-                        <select class="w3-select w3-border w3-round" name="gioi_tinh">
-                            <option value="" selected hidden disabled>Mời Bạn chọn</option>
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                        </select>
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Năm sinh</label>
-                        <select class="w3-select w3-border w3-round" name="nam_sinh">
-                            <option value="" selected hidden disabled>Mời Bạn chọn</option>
-                            <?php for ($i = 1900; $i < 3000; $i++) : ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Số nhập viện</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="so_nhap_vien">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Khoa điều trị</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="khoa_dieu_tri">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Chẩn Đoán</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="chan_doan">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Phương pháp mổ</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="phuong_phap_mo">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Mã ICD</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="ma_icd">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Phẩu thuật viên chính</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="phau_thuật_vien_chinh">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Phẩu thuật viên phụ</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="phau_thuat_vien_phu">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Phương pháp gây mê</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="phuong_phap_gay_me">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Gây mê</label>
-                        <input type="text" class="w3-input w3-border w3-round" name="gay_me">
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Nhóm máu</label>
-                        <select class="w3-select w3-border w3-round" name="nhom_mau">
-                            <option value="" selected hidden disabled>Mời Bạn chọn</option>
-                            <option value="A+">A+</option>
-                            <option value="B+">B+</option>
-                            <option value="AB+">AB+</option>
-                            <option value="O+">O+</option>
-                            <option value="A-">A-</option>
-                            <option value="B-">B-</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O-">O-</option>
-                        </select>
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Dự trù máu</label>
-                        <select class="w3-select w3-border w3-round" name="nhom_mau">
-                            <option value="" selected hidden disabled>Mời Bạn chọn</option>
-                            <option value="1">1 ĐV</option>
-                            <option value="2">2 ĐV</option>
-                            <option value="3">3 ĐV</option>
-                            <option value="4">4 ĐV</option>
-                            <option value="5">5 ĐV</option>
-                            <option value="6">6 ĐV</option>
-                            <option value="7">7 ĐV</option>
-                            <option value="8">8 ĐV</option>
-                            <option value="9">9 ĐV</option>
-                            <option value="10">10 ĐV</option>
-                        </select>
-                    </div>
-
-                    <div class="w3-margin">
-                        <label for="">Ngày mổ</label>
-                        <input type="date" class="w3-input w3-border w3-round" name="ngay_mo">
-                    </div>
-
-                    <div class="w3-margin">
-                        <button class="w3-button w3-blue w3-round w3-block" type="submit">Thêm</button>
+                    <div class="w3-margin w3-small w3-row-padding">
+                        <div class="w3-half">
+                            <button class="w3-button w3-grey w3-round w3-block" onclick="document.getElementById('hop_thoai_xoa').style.display='none'">Thoát</button>
+                        </div>
+                        <div class="w3-half">
+                            <button class="w3-button w3-red w3-round w3-block" type="submit">Xóa</button>
+                        </div>
                     </div>
                 </form>
             </div>
 
-            <footer class="w3-container w3-blue" style="border-radius: 0px 0px 5px 5px;">
+            <footer class="w3-container w3-red" style="border-radius: 0px 0px 5px 5px;">
                 <p>Modal Footer</p>
             </footer>
 
@@ -471,10 +377,12 @@
         console.log(sidebar.classList.contains('w3-hide-small'));
 
         function w3_open() {
-            if (sidebar.classList.contains('w3-hide-small')) {
+            if (sidebar.classList.contains('w3-hide-small') || sidebar.classList.contains('w3-hide-medium')){
                 sidebar.classList.remove('w3-hide-small');
-            } else {
+                sidebar.classList.remove('w3-hide-medium');
+            } else{
                 sidebar.classList.add('w3-hide-small');
+                sidebar.classList.add('w3-hide-medium');
             }
         }
     </script>

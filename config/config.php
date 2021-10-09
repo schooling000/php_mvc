@@ -7,5 +7,5 @@
     define('DEFAULT_TITLE_WEB_PAGE', 'Lịch Mổ Khoa Ngoại');
     define('DEFAULT_LAYOUT', 'default_layout');
 
-    define('DEFAULE_CONTROLLER', 'Trang_dang_nhap');
-    define('DEFAULE_METHOD', 'dang_nhap');
+    define('DEFAULE_CONTROLLER', 'Dang_nhap');
+    define('DEFAULE_METHOD', 'xem_dang_nhap');

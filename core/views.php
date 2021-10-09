@@ -31,12 +31,12 @@
             }
         }
 
-        public function getTile()
+        public function get_title()
         {
             return $this->_title;
         }
 
-        public function setTitle($newTitle)
+        public function set_title($newTitle)
         {
             $this->_title = $newTitle;
         }
