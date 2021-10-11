@@ -1,5 +1,4 @@
 <?php
-
 # KHỞI TẠO PHIÊN LÀM VIỆC
 session_start();
 
@@ -15,17 +14,25 @@ require_once ROOT_PATH . DS . 'lib' . DS . 'help_function.php';
 require_once ROOT_PATH . DS . 'config' . DS . 'config.php';
 
 spl_autoload_register(function ($ClassName) {
-    if (file_exists(ROOT_PATH . DS . 'core' . DS . $ClassName . '.php')) {
-        require_once ROOT_PATH . DS . 'core' . DS . $ClassName . '.php';
-    } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'controller' . DS . $ClassName . '.php')) {
-        require_once ROOT_PATH . DS . 'app' . DS . 'controller' . DS . $ClassName . '.php';
-    } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'models' . DS . $ClassName . '.php')) {
-        require_once ROOT_PATH . DS . 'app' . DS . 'models' . DS . $ClassName . '.php';
-    } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'views' . DS . $ClassName . '.php')) {
-        require_once ROOT_PATH . DS . 'app' . DS . 'views' . DS . $ClassName . '.php';
-    } else {
-        echo 'Không Tìm Thấy File Chứa Class Với Tên ' . $ClassName;
+    $path_file = strtolower(ROOT_PATH . DS .$ClassName) . '.php';
+    //echo $path_file . '<br>';
+    if(file_exists($path_file)){
+        require_once $path_file;
+    }else{
+        exit('Không tìm thấy file chứa class ' .(explode(DS, $ClassName))[count(explode(DS, $ClassName)) - 1]. ' của bạn');
     }
+    
+    // if (file_exists(ROOT_PATH . DS . 'core' . DS . $ClassName . '.php')) {
+    //     require_once ROOT_PATH . DS . 'core' . DS . $ClassName . '.php';
+    // } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'controller' . DS . $ClassName . '.php')) {
+    //     require_once ROOT_PATH . DS . 'app' . DS . 'controller' . DS . $ClassName . '.php';
+    // } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'models' . DS . $ClassName . '.php')) {
+    //     require_once ROOT_PATH . DS . 'app' . DS . 'models' . DS . $ClassName . '.php';
+    // } elseif (file_exists(ROOT_PATH . DS . 'app' . DS . 'views' . DS . $ClassName . '.php')) {
+    //     require_once ROOT_PATH . DS . 'app' . DS . 'views' . DS . $ClassName . '.php';
+    // } else {
+    //     echo 'Không Tìm Thấy File Chứa Class Với Tên ' . $ClassName;
+    // }
 });
 
 try {
@@ -41,4 +48,4 @@ try {
 
 }
 
-Router::route($url);
+core\Router::route($url);
