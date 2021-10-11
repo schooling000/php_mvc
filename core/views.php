@@ -38,6 +38,19 @@ namespace core {
             }
         }
 
+        public function content($type){
+            if($type == 'title'){
+                return $this->_title;
+            }
+            elseif($type == 'head'){
+                return $this->_head;
+            }elseif($type == 'body'){
+                return $this->_body;
+            }else{
+                return false;
+            }
+        }
+
         public function get_title()
         {
             return $this->_title;

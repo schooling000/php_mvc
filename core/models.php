@@ -5,7 +5,8 @@ class Models{
 
     public function get_model($model)
     {
-        return New $model();
+        $model = 'app' . DS . 'models' . DS . ucwords($model);
+        return new $model();
     }
 
 }

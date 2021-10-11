@@ -15,7 +15,7 @@ require_once ROOT_PATH . DS . 'config' . DS . 'config.php';
 
 spl_autoload_register(function ($ClassName) {
     $path_file = strtolower(ROOT_PATH . DS .$ClassName) . '.php';
-    //echo $path_file . '<br>';
+    echo $path_file . '<br>';
     if(file_exists($path_file)){
         require_once $path_file;
     }else{
