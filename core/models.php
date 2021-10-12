@@ -32,8 +32,12 @@ class Models{
             }
 
             $flag = is_array($data['select_condition']) && !empty($data['select_condition']);
-            if($flag){
-                $query .= 'WHERE ' . strtolower(implode('AND',$data['select_field']));
+            if(is_array($data['select_condition']) && !empty($data['select_condition'])){
+                $arr_value = array();
+                foreach ($data['select_condition'] as $key => $value) {
+                    array_push($arr_value, $key . ' = ' . $value);
+                }
+                $query .= ' WHERE ' . strtolower(implode(' AND ',$arr_value));
             }else{
                 exit('Models::get_data($data): $data[select_field] không được rổng');
             }
