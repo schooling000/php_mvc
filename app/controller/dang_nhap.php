@@ -21,7 +21,10 @@ namespace app\controller {
                 }
 
                 $model = $this->_model->get_model('dang_nhap');
-            }
+                $this->_model->get_data([
+                    'select_field'=>['fho_ten_benh_nhan', 'fnam_sinh', 'fgioi_tinh'],
+                    'select_table'=>['tbenh_nhan', 'tnhan_vien']
+                ]);            }
             $this->_view->render('dang_nhap/dang_nhap');
         }
     }
