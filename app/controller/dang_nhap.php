@@ -4,7 +4,7 @@ namespace app\controller {
 
     class Dang_nhap extends \core\Controller
     {
-        
+
         public function xem_dang_nhap()
         {
             if (isset($_POST['data']['nut_dang_nhap'])) {
@@ -21,14 +21,15 @@ namespace app\controller {
                 }
 
                 $model = $this->_model->get_model('dang_nhap');
-                $this->_model->get_data([
-                    'select_field'=>['fho_ten_benh_nhan', 'fnam_sinh', 'fgioi_tinh'],
-                    'select_table'=>['tbenh_nhan', 'tnhan_vien'],
-                    'select_condition'=>[
-                        'fma_benh_nhan'=>':fma_benh_nhan',
-                        'fho_ten_benh_nhan'=>':fho_ten_benh_nhan'
-                        ]
-                ]);            }
+                $result = $this->_model->get_data([
+                    'select_field' => ['*'],
+                    'select_table' => ['bang_nhan_vien'],
+                    'select_condition' => ['ma_nhan_vien' => ':ma_nhan_vien'],
+                    'select_param' => [':ma_nhan_vien' => 1]
+                ]);
+
+                dnd($result);
+            }
             $this->_view->render('dang_nhap/dang_nhap');
         }
     }
