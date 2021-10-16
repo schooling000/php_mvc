@@ -21,6 +21,7 @@ namespace app\controller {
                 }
 
                 $model = $this->_model->get_model('dang_nhap');
+<<<<<<< HEAD
 
 
                 $nhan_vien = $model::kiem_tra_dang_nhap($tai_khoan, $mat_khau);
@@ -42,6 +43,16 @@ namespace app\controller {
                 }
 
                 header('location:\php_mvc\lich_mo\xem_lich_mo');
+=======
+                $result = $this->_model->get_data([
+                    'select_field' => ['*'],
+                    'select_table' => ['bang_nhan_vien'],
+                    'select_condition' => ['ma_nhan_vien' => ':ma_nhan_vien'],
+                    'select_param' => [':ma_nhan_vien' => 1]
+                ]);
+
+                dnd($result);
+>>>>>>> 1ce38ca0995e056527303faeefd6f92342d39dfa
             }
             $this->_view->render('dang_nhap\dang_nhap');
         }

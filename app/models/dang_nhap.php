@@ -1,5 +1,6 @@
 <?php
 namespace app\models{
+<<<<<<< HEAD
 
 class Dang_nhap{
     
@@ -52,6 +53,12 @@ class Dang_nhap{
             } catch (\Exception $e) {
                 exit('Model Dang_nhap lổi: ' . $e->getMessage());
             }
+=======
+    class Dang_nhap extends \core\Models{
+        public static function kiem_tra_tai_khoan($tai_khoan)
+        {
+           
+>>>>>>> 1ce38ca0995e056527303faeefd6f92342d39dfa
         }
     }
 }
