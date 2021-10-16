@@ -15,7 +15,7 @@ require_once ROOT_PATH . DS . 'config' . DS . 'config.php';
 
 spl_autoload_register(function ($ClassName) {
     $path_file = strtolower(ROOT_PATH . DS .$ClassName) . '.php';
-    echo $path_file . '<br>';
+    //echo $path_file . '<br>';
     if(file_exists($path_file)){
         require_once $path_file;
     }else{
@@ -35,17 +35,7 @@ spl_autoload_register(function ($ClassName) {
     // }
 });
 
-try {
-    $db = new PDO("mysql:host=" . SERVER_DB_DRIVER . ";dbname=" . SERVER_DB_NAME
-                  , SERVER_DB_USER
-                  , SERVER_DB_PASSWORD);
-
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch (PDOException $e) {
-
-    echo "Connection failed: " . $e->getMessage();
-
-}
+$db = new \core\Database();
+$db->select_db('dngoai_khoa');
 
 core\Router::route($url);
