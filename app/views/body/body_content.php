@@ -1,0 +1,1 @@
+<?php $this->get_web_element(self::WEB_ELEMENT_CONTENT);?>

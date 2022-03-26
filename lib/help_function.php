@@ -8,9 +8,5 @@
         die('');
     }
 
-    function checkIssetClass()
-    {
-        # code...
-    }
 
 ?>
