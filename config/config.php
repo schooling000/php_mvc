@@ -1,16 +1,20 @@
-<?php
-define('SERVER_DB_DRIVER', 'localhost');
-define('SERVER_DB_USER', 'root');
-define('SERVER_DB_PASSWORD', '');
-define('SERVER_DB_NAME', 'khoa_ngoai');
+<?php 
+// CREATE SESSION FORM FOR APP
+$_SESSION['user']       = null;
+$_SESSION['message']    = null;
 
-define('DEFAULT_TITLE_WEB_PAGE', 'Lịch Mổ Khoa Ngoại');
-define('DEFAULT_LAYOUT', 'default_layout');
 
-<<<<<<< HEAD
-    define('DEFAULT_CONTROLLER', 'Dang_nhap');
-    define('DEFAULT_METHOD', 'xem_dang_nhap');
-=======
-define('DEFAULT_CONTROLLER', 'app\controller\Dang_nhap');
-define('DEFAULT_METHOD', 'xem_dang_nhap');
->>>>>>> 1ce38ca0995e056527303faeefd6f92342d39dfa
+// DEFINE INFO MYSQL DATABASE
+const DB_HOST = 'localhost';
+const DB_USER = 'root';
+const DB_PASS = '';
+const DB_NAME = '';
+
+// DEFINE INFO APP
+const WEB_APP_NAME = 'My Web';
+const DEFAULT_CONTROLLER = 'dang_nhap';
+const DEFAULT_METHOD = 'dang_nhap';
+
+
+
+

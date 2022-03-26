@@ -1,13 +1,16 @@
 <?php
-    function debug($Valueble){
-        echo '<pre>';
-        var_dump($Valueble);
-        echo '</pre>';
-    }
 
-    function dnd($valueble){
+    function dnd($value)
+    {
         echo '<pre>';
-        var_dump($valueble);
+        var_dump($value);
         echo '</pre>';
         die('');
     }
+
+    function checkIssetClass()
+    {
+        # code...
+    }
+
+?>
