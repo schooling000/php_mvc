@@ -24,6 +24,7 @@ try {
     // CREATE VALUEBLE 
     $db         = null;
     $user       = null;
+
     $url        = null;
     $controller = null;
     $method     = null;
@@ -40,22 +41,39 @@ try {
     // GET INFOR CONTROLLER, METHOD, PARAM IN URL;
     $url = $_REQUEST;
 
-
+        echo '<pre>';
+        var_dump($user->Logged());
+        echo '</pre>';
 
     // KIỂM TRA NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP CHƯA
     if ($user->Logged()) {
         // NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP
+        $controller = isset($url['controller']) & !empty($url['controller']) ? $url['controller'] : null;
+        unset($url['controller']);
+
+        $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
+        unset($url['method']);
+
+        $param = isset($url['param']) ? $url['param'] : array();
+        unset($url['param']);
+
     } else {
         // NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
 
         // + LẤY THÔNG TIN CONTROLLER, METHOD, PARAM DEFAULT APP
-        $controller = ROOT_PATH . DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
+        $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
         $method     = DEFAULT_METHOD;
-        $param      = isset($_REQUEST['param']) ? $_REQUEST['param'] : [];
+        $param      = array();
 
-        $controller = new $controller();
-        call_user_func_array(array($controller, $method), $param);
-        unset($controller);
+        $controller = class_exists($controller) ? new $controller() : false;
+        $method = method_exists($controller, $method)? $method : false;
+        
+        if( $controller !== false && $method !== false){
+            call_user_func_array(array($controller, $method), $param);
+        }else{
+            throw new Exception('Class Dang_nhap hoặc Method Dang_nhap Không Tồn Tại', ERRNO_NOT_FOUND);
+        }
+
     }
 
 
@@ -63,14 +81,16 @@ try {
     unset($url);
 
 } catch (\PDOException $e) {
-    echo ('Error: ' . $e->getMessage()  . '<br>');
-    echo ('Line: '  . $e->getLine()     . '<br>');
-    echo ('File: '  . $e->getFile()     . '<br>');
+    echo ('Error Code: '    . $e->getCode()     . '<br>');
+    echo ('Error: '         . $e->getMessage()  . '<br>');
+    echo ('Line: '          . $e->getLine()     . '<br>');
+    echo ('File: '          . $e->getFile()     . '<br>');
     exit();
 } catch (\Exception $e) {
-    echo ('Error: ' . $e->getMessage()  . '<br>');
-    echo ('Line: '  . $e->getLine()     . '<br>');
-    echo ('File: '  . $e->getFile()     . '<br>');
+    echo ('Error Code: '    . $e->getCode()     . '<br>');
+    echo ('Error: '         . $e->getMessage()  . '<br>');
+    echo ('Line: '          . $e->getLine()     . '<br>');
+    echo ('File: '          . $e->getFile()     . '<br>');
     exit();
 } finally {
     unset($db);
