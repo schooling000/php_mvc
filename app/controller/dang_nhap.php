@@ -13,7 +13,26 @@
             {
                 
                 if(isset($_POST['btn_dang_nhap']) && $_POST['btn_dang_nhap'] == true){
-                    
+
+                    $validate = new \core\Validate();
+                    $validate->removeScriptInput($_POST);
+                    $validate->check($_POST, [
+                        'tai_khoan_nhan_vien'=>[
+                            'required'=>true,
+                            'maxlength'=>30
+                        ],
+                        'mat_khau_nhan_vien'=>[
+                            'maxlength'=>30
+                        ]
+                    ]);
+
+                    if(!$validate->hasError()){
+
+                    }else{
+
+                    }
+                                        
+                    unset($validate);
                 }
                 $this->view->render();
             }
