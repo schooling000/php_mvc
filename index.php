@@ -33,7 +33,6 @@ try {
     // CREATE CONTROLL USER FOR APP
     $user = new \core\User();
 
-
     // CREATE CONNECT TO DB;
     $db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -45,28 +44,15 @@ try {
         var_dump($user->Logged());
         echo '</pre>';
 
-    // KIỂM TRA NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP CHƯA
-    if ($user->Logged()) {
-        // NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP
-        $controller = isset($url['controller']) & !empty($url['controller']) ? $url['controller'] : null;
-        unset($url['controller']);
+    // KIỂM TRA NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
+    if (!$user->Logged()) {
 
-        $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
-        unset($url['method']);
-
-        $param = isset($url['param']) ? $url['param'] : array();
-        unset($url['param']);
-
-    } else {
-        // NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
-
-        // + LẤY THÔNG TIN CONTROLLER, METHOD, PARAM DEFAULT APP
         $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
         $method     = DEFAULT_METHOD;
         $param      = array();
 
-        $controller = class_exists($controller) ? new $controller() : false;
-        $method = method_exists($controller, $method)? $method : false;
+        $controller = class_exists($controller) ? new $controller($db) : false;
+        $method     = method_exists($controller, $method)? $method : false;
         
         if( $controller !== false && $method !== false){
             call_user_func_array(array($controller, $method), $param);
@@ -74,8 +60,19 @@ try {
             throw new Exception('Class Dang_nhap hoặc Method Dang_nhap Không Tồn Tại', ERRNO_NOT_FOUND);
         }
 
+        exit();
+        // NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP
+        
     }
+    
+    $controller = isset($url['controller']) & !empty($url['controller']) ? $url['controller'] : null;
+    unset($url['controller']);
 
+    $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
+    unset($url['method']);
+
+    $param = isset($url['param']) ? $url['param'] : array();
+    unset($url['param']);
 
     // DESTROY URL VALUABLE;
     unset($url);

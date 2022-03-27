@@ -27,7 +27,7 @@
 
         public function Logged()
         {
-            return (self::$id == null || self::$id <= 0) ? true : false;
+            return !(self::$id == null || self::$id <= 0) ? true : false;
         }
         
         public function changPage($controller, $method, $parram = array())
@@ -35,7 +35,13 @@
             $url = 'location:index.php?controller=' ;
         }
 
-
+        public function __destruct()
+        {
+            self::$id = null;
+            self::$name = null;
+            self::$email = null;
+            self::$acount = null;
+        }
 
 
      } // end class

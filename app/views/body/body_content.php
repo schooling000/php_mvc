@@ -1,1 +1,1 @@
-<?php $this->get_web_element(self::WEB_ELEMENT_CONTENT);?>
+<?php echo $this->get_web_element(self::WEB_ELEMENT_CONTENT);?>
