@@ -1,33 +1,44 @@
 <?php
  namespace core{
-     class User{
-        private static $id = null;
-        private static $name = null;
-        private static $email = null;
-        private static $acount = null;
-        private static $role = null;
-        private static $roleName = null;
-        private static $functions = array();
 
-        public function setUser($id, $name, $email, $acount)
+     class User{
+
+        public function setUser($id, $name, $email, $acount, $role, $roleName)
         {
-            self::$id       = $id;
-            self::$name     = $name;
-            self::$email    = $email;
-            self::$acount   = $acount;
+            $_SESSION['user']['id']         = $id;
+            $_SESSION['user']['name']       = $name;
+            $_SESSION['user']['email']      = $email;
+            $_SESSION['user']['acount']     = $acount;
+            $_SESSION['user']['role']       = $role;
+            $_SESSION['user']['roleName']   = $roleName;
+        }
+
+        public function setUserFunctions($functions)
+        {
+            $_SESSION[]
         }
         
         public function clearUser()
         {
-            self::$id       = null;
-            self::$name     = null;
-            self::$email    = null;
-            self::$acount   = null;
+            $_SESSION['user']['id']         = null;
+            $_SESSION['user']['name']       = null;
+            $_SESSION['user']['email']      = null;
+            $_SESSION['user']['acount']     = null;
+            $_SESSION['user']['role']       = null;
+            $_SESSION['user']['roleName']   = null;
+            $_SESSION['user']['functions']  = null;
         }
 
         public function Logged()
         {
-            return !(self::$id == null || self::$id <= 0) ? true : false;
+            return !($_SESSION['user']['id'] == null || $_SESSION['user']['id'] <= 0) ? true : false;
+        }
+
+        public function checkRole($controller, $method)
+        {
+            echo $controller .'<br>';
+            echo $method .'<br>';
+            dnd('');
         }
         
         public function changPage($controller, $method, $parram = array())
@@ -35,14 +46,5 @@
             $url = 'location:index.php?controller=' ;
         }
 
-        public function __destruct()
-        {
-            self::$id = null;
-            self::$name = null;
-            self::$email = null;
-            self::$acount = null;
-        }
-
-
-     } // end class
+    } // end class
  } // end namespace

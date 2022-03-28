@@ -16,9 +16,8 @@ namespace core {
             if(!empty($data['query'])){
                 $stmt = self::$db->prepare($data['query']);
                 $stmt->execute($data['query_value']);
-                $result_value = $stmt->fetchAll(\PDO::FETCH_DEFAULT);
+                $result_value = $stmt->fetchAll(\PDO::FETCH_ASSOC);
                 $stmt->closeCursor();
-                dnd($result_value);
                 return !empty($result_value) ? $result_value : array();
             }else{
                 throw new \Exception("Dữ liệu đưa vào không đúng", ERRNO_DATA_INPUT);

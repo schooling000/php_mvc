@@ -13,12 +13,14 @@ namespace app\models {
         public function checkLogin($acount, $password)
         {
             $tai_khoan = $this->select([
-                'query' => 'SELECT MA_NHAN_VIEN, HO_TEN_NHAN_VIEN, EMAIL_NHAN_VIEN, TAI_KHOAN_NHAN_VIEN FROM NHAN_VIEN WHERE TAI_KHOAN_NHAN_VIEN = :TAI_KHOAN  AND MAT_KHAU_NHAN_VIEN = :MAT_KHAU LIMIT 1',
+                'query' =>  'CALL CHECK_DANG_NHAP(:TAI_KHOAN, :MAT_KHAU);',
                 'query_value' => [
-                    ':TAI_KHOAN' => $acount,
-                    ':MAT_KHAU'=> $password
+                            ':TAI_KHOAN' => $acount,
+                            ':MAT_KHAU' => $password
                 ]
             ]);
+
+            return !empty($tai_khoan )? $tai_khoan : array();
         }
     }
 }

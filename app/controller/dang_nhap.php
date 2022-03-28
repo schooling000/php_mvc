@@ -28,6 +28,23 @@
 
                     if(!$validate->hasError()){
 
+                        $tai_khoan_nhan_vien = $_POST['tai_khoan_nhan_vien'];
+                        $mat_khau_nhan_vien = $_POST['mat_khau_nhan_vien'];
+
+                        $result = $this->model->checkLogin($tai_khoan_nhan_vien, $mat_khau_nhan_vien);
+                        
+                        if(!empty($result)){
+                            global $user;
+                            $user->setUser($result[0]['MA_NHAN_VIEN'], 
+                                           $result[0]['HO_TEN_NHAN_VIEN'],
+                                           $result[0]['EMAIL_NHAN_VIEN'], 
+                                           $result[0]['TAI_KHOAN_NHAN_VIEN'],
+                                           $result[0]['MA_QUYEN_NHAN_VIEN'],
+                                           $result[0]['TEN_QUYEN_NHAN_VIEN']);
+                            header('location:index.php?controller=lich_mo&method=lich_mo');
+                        }
+
+
                     }else{
 
                     }

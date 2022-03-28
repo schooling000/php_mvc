@@ -40,17 +40,13 @@ try {
     // GET INFOR CONTROLLER, METHOD, PARAM IN URL;
     $url = $_REQUEST;
 
-        echo '<pre>';
-        var_dump($user->Logged());
-        echo '</pre>';
-
-    // KIỂM TRA NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
+    // NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
     if (!$user->Logged()) {
-
         $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
         $method     = DEFAULT_METHOD;
         $param      = array();
-
+        echo $controller;
+        
         $controller = class_exists($controller) ? new $controller($db) : false;
         $method     = method_exists($controller, $method)? $method : false;
         
@@ -61,10 +57,12 @@ try {
         }
 
         exit();
-        // NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP
         
     }
     
+    // NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP 
+
+    // LẤY CONTROLLER VÀ METHOD TRÊN URL
     $controller = isset($url['controller']) & !empty($url['controller']) ? $url['controller'] : null;
     unset($url['controller']);
 
@@ -73,6 +71,9 @@ try {
 
     $param = isset($url['param']) ? $url['param'] : array();
     unset($url['param']);
+
+    // KIỂM TRA NGƯỜI DÙNG CÓ QUYỀN CHẠY CONTROLLER VÀ METHOD NÀY KHÔNG
+    $user->checkRole($controller, $method);
 
     // DESTROY URL VALUABLE;
     unset($url);

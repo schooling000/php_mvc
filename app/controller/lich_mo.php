@@ -12,6 +12,7 @@ namespace app\controller {
 
         public function lich_mo()
         {
+            echo 'trang lich mo';
         }
     }
 }
