@@ -1,8 +1,4 @@
 <?php 
-// CREATE SESSION FORM FOR APP
-$_SESSION['user']       = null;
-$_SESSION['message']    = null;
-
 
 // DEFINE INFO MYSQL DATABASE
 const DB_HOST = 'localhost';

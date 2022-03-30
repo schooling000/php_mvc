@@ -15,7 +15,7 @@
 
         public function setUserFunctions($functions)
         {
-            $_SESSION[]
+            $_SESSION['user']['functions'] = $functions;
         }
         
         public function clearUser()
@@ -31,14 +31,14 @@
 
         public function Logged()
         {
-            return !($_SESSION['user']['id'] == null || $_SESSION['user']['id'] <= 0) ? true : false;
+            return !(!isset($_SESSION['user']['id']) || 
+                     $_SESSION['user']['id'] == null || 
+                     $_SESSION['user']['id'] <= 0) ? true : false;
         }
 
         public function checkRole($controller, $method)
         {
-            echo $controller .'<br>';
-            echo $method .'<br>';
-            dnd('');
+            
         }
         
         public function changPage($controller, $method, $parram = array())

@@ -42,6 +42,8 @@
                                            $result[0]['MA_QUYEN_NHAN_VIEN'],
                                            $result[0]['TEN_QUYEN_NHAN_VIEN']);
                             header('location:index.php?controller=lich_mo&method=lich_mo');
+                        }else{
+                            
                         }
 
 
