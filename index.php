@@ -76,6 +76,7 @@ try {
 
     // DESTROY URL VALUABLE;
     unset($url);
+    $user->clearUser();
 
 } catch (\PDOException $e) {
     echo ('Error Code: '    . $e->getCode()     . '<br>');

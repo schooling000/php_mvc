@@ -3,21 +3,32 @@
 
      class User{
 
+        
         public function setUser($id, $name, $email, $acount, $role, $roleName)
         {
             $_SESSION['user']['id']         = $id;
             $_SESSION['user']['name']       = $name;
             $_SESSION['user']['email']      = $email;
             $_SESSION['user']['acount']     = $acount;
-            $_SESSION['user']['role']       = $role;
+            $_SESSION['user']['roleId']       = $role;
             $_SESSION['user']['roleName']   = $roleName;
         }
 
-        public function setUserFunctions($functions)
+        public function setUserPermissions($permissions)
         {
-            $_SESSION['user']['functions'] = $functions;
+            $_SESSION['user']['permissions'] = $permissions;
+        }
+
+        public function getRoleId()
+        {
+            return !empty($_SESSION['user']['roleId']) ? $_SESSION['user']['roleId'] : false;
         }
         
+        public function getPermissions()
+        {
+            return isset($_SESSION['user']['permissions']) & !empty($_SESSION['user']['permissions']) ? $_SESSION['user']['permissions'] : false;
+        }
+
         public function clearUser()
         {
             $_SESSION['user']['id']         = null;
@@ -43,6 +54,8 @@
         
         public function changPage($controller, $method, $parram = array())
         {
+            
+            if(strlen($controller) > 0 & strlen($method) > 0 )
             $url = 'location:index.php?controller=' ;
         }
 
