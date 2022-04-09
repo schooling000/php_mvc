@@ -3,15 +3,22 @@
 
      class User{
 
+        private function isset(){
+            return  isset($_SESSION['user']['id']) && 
+                    !empty($_SESSION['user']['id']) && 
+                    $_SESSION['user']['id'] !== null && 
+                    $_SESSION['user']['id'] > 0 ? true : false;
+        }
         
         public function setUser($id, $name, $email, $acount, $role, $roleName)
         {
-            $_SESSION['user']['id']         = $id;
-            $_SESSION['user']['name']       = $name;
-            $_SESSION['user']['email']      = $email;
-            $_SESSION['user']['acount']     = $acount;
-            $_SESSION['user']['roleId']       = $role;
-            $_SESSION['user']['roleName']   = $roleName;
+            $_SESSION['user']['id']             = $id;
+            $_SESSION['user']['name']           = $name;
+            $_SESSION['user']['email']          = $email;
+            $_SESSION['user']['acount']         = $acount;
+            $_SESSION['user']['roleId']         = $role;
+            $_SESSION['user']['roleName']       = $roleName;
+            $_SESSION['user']['permissions']    = null;
         }
 
         public function setUserPermissions($permissions)
@@ -19,15 +26,17 @@
             $_SESSION['user']['permissions'] = $permissions;
         }
 
-        public function getRoleId()
-        {
-            return !empty($_SESSION['user']['roleId']) ? $_SESSION['user']['roleId'] : false;
-        }
-        
         public function getPermissions()
         {
             return isset($_SESSION['user']['permissions']) & !empty($_SESSION['user']['permissions']) ? $_SESSION['user']['permissions'] : false;
         }
+
+        public function getRoleId()
+        {
+            return  $this->isset() && 
+                    !empty($_SESSION['user']['roleId']) ? $_SESSION['user']['roleId'] : false;
+        }
+        
 
         public function clearUser()
         {
@@ -42,12 +51,10 @@
 
         public function Logged()
         {
-            return !(!isset($_SESSION['user']['id']) || 
-                     $_SESSION['user']['id'] == null || 
-                     $_SESSION['user']['id'] <= 0) ? true : false;
+            return $this->isset() ? true : false;
         }
 
-        public function checkRole($controller, $method)
+        public function haveAccess($controller, $method)
         {
             
         }

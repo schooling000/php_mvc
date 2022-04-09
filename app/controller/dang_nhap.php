@@ -44,7 +44,7 @@
                             
                             $user->setUserPermissions($this->model->getPermissions($user->getRoleId()));
 
-                            dnd($user->getPermissions());
+                            header('location:index.php?controller=nhan_vien&&method=nhan_vien');
                         }else{
                             
                         }
