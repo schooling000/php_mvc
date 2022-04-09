@@ -24,6 +24,7 @@ try {
     // CREATE VALUEBLE 
     $db         = null;
     $user       = null;
+    $message    = null;
 
     $url        = null;
     $controller = null;
@@ -31,7 +32,8 @@ try {
     $param      = array();
 
     // CREATE CONTROLL USER FOR APP
-    $user = new \core\User();
+    $user       = new \core\User();
+    $message    = new \core\Message();
 
     // CREATE CONNECT TO DB;
     $db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
@@ -59,6 +61,8 @@ try {
             $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
             $method     = DEFAULT_METHOD;
             $param      = array();
+            $message->deleteMessage();
+            $message->addMessage('form_dang_nhap',MESSAGE_TYPE_ERROR,'Bạn Hiện Chưa Có Quyền Với Chức Năng Này Mời Đăng Nhập');
         }
     }
 
@@ -85,10 +89,13 @@ try {
     echo ('File: '          . $e->getFile()     . '<br>');
     exit();
 } finally {
+
     unset($db);
     unset($user);
+    unset($message);
 
-    $db = null;
-    $user = null;
+    $db         = null;
+    $user       = null;
+    $message    = null;
 }
 ob_end_flush();

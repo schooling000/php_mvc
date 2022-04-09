@@ -1,7 +1,8 @@
 <?php 
+    global $message;
     $data['tai_khoan_nhan_vien']    = 'Tài Khoản Không Được Trống';
     $data['mat_khau_nhan_vien']     = 'Mật Không Được Trống';
-    $data['tai_khoan']              = 'Tài Khoản Không Được Trống';
+    $data['form_dang_nhap']         = $message->selectMessage('form_dang_nhap');
 ?>
 
 <?php $this->set_web_title('Đăng Nhập'); ?>
@@ -26,7 +27,7 @@
             <ul class="w3-border w3-border-red w3-text-red">
                 <?php if(!empty($data['tai_khoan_nhan_vien'])){ echo '<li>' . $data['tai_khoan_nhan_vien'] . '</li>'; }?></li>
                 <?php if(!empty($data['mat_khau_nhan_vien'])){ echo '<li>' . $data['mat_khau_nhan_vien'] . '</li>'; }?></li>
-                <?php if(!empty($data['tai_khoan_nhan_vien'])){ echo '<li>' . $data['tai_khoan_nhan_vien'] . '</li>'; }?></li>
+                <?php if(!empty($data['form_dang_nhap'])){ echo '<li>' . $data['form_dang_nhap']['value'] . '</li>'; }?></li>
             </ul>
         </div>
 

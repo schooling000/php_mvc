@@ -14,6 +14,8 @@ const DEFAULT_METHOD = 'dang_nhap';
 
 const DEFAULT_LAYOUT = 'layout';
 
+const MESSAGE_TYPE_ERROR = 'error';
+const MESSAGE_TYPE_SUCCESS = 'success';
 
 // DEFINE ERROR CODE TYPE
 const ERRNO_NOT_FOUND = 500; // NOT FOUND FILE OR CLASS, METHOD, DIRECTORY

@@ -8,9 +8,9 @@ namespace core {
         private function isset()
         {
             return  isset($_SESSION['user']['id']) &&
-                !empty($_SESSION['user']['id']) &&
-                $_SESSION['user']['id'] !== null &&
-                $_SESSION['user']['id'] > 0 ? true : false;
+                    !empty($_SESSION['user']['id']) &&
+                    $_SESSION['user']['id'] !== null &&
+                    $_SESSION['user']['id'] > 0 ? true : false;
         }
 
         public function setUser($id, $name, $email, $acount, $role, $roleName)
@@ -43,13 +43,13 @@ namespace core {
 
         public function clearUser()
         {
-            $_SESSION['user']['id']         = null;
-            $_SESSION['user']['name']       = null;
-            $_SESSION['user']['email']      = null;
-            $_SESSION['user']['acount']     = null;
-            $_SESSION['user']['role']       = null;
-            $_SESSION['user']['roleName']   = null;
-            $_SESSION['user']['functions']  = null;
+            $_SESSION['user']['id']             = null;
+            $_SESSION['user']['name']           = null;
+            $_SESSION['user']['email']          = null;
+            $_SESSION['user']['acount']         = null;
+            $_SESSION['user']['role']           = null;
+            $_SESSION['user']['roleName']       = null;
+            $_SESSION['user']['permissions']    = null;
         }
 
         public function Logged()
@@ -60,11 +60,10 @@ namespace core {
         public function haveAccess($controller, $method)
         {
             try {
-
                 $permissions = array_change_key_case($this->getPermissions(), CASE_LOWER);
                 if(in_array(strtolower($controller), array_keys($permissions))){
                     $functionOfPermission = array_change_key_case($permissions[strtolower($controller)], CASE_LOWER);
-                    return in_array(strtolower($method), array_keys($functionOfPermission)) && $functionOfPermission[strtolower($method)] == 0 ? true : false;
+                    return in_array(strtolower($method), array_keys($functionOfPermission)) && $functionOfPermission[strtolower($method)] == true ? true : false;
                 }else{
                     return false;
                 }

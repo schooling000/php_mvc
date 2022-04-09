@@ -3,6 +3,11 @@
 namespace core {
     class Message
     {
+        public function __construct()
+        {
+            $_SESSION['message'] =array();
+        }
+
         public function addMessage($key, $type, $value)
         {
             $_SESSION['message'][$key]['type'] = $type;
@@ -24,7 +29,9 @@ namespace core {
                 unset($_SESSION['message'][$key]);
                 $_SESSION['message'] =  array_values($_SESSION['message']);
             }else{
-                unset($_SESSION['message']);
+                foreach ($_SESSION['message'] as $key => $value) {
+                    unset($_SESSION['message'][$key]);
+                }
             }
         }
 
