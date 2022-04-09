@@ -71,12 +71,7 @@ try {
     $param = isset($url['param']) ? $url['param'] : array();
     unset($url['param']);
 
-    // KIỂM TRA NGƯỜI DÙNG CÓ QUYỀN CHẠY CONTROLLER VÀ METHOD NÀY KHÔNG
-    $user->checkRole($controller, $method);
-
-    // DESTROY URL VALUABLE;
     unset($url);
-    $user->clearUser();
 
 } catch (\PDOException $e) {
     echo ('Error Code: '    . $e->getCode()     . '<br>');
