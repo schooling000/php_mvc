@@ -1,15 +1,18 @@
 <?php
- namespace core{
 
-     class User{
+namespace core {
 
-        private function isset(){
-            return  isset($_SESSION['user']['id']) && 
-                    !empty($_SESSION['user']['id']) && 
-                    $_SESSION['user']['id'] !== null && 
-                    $_SESSION['user']['id'] > 0 ? true : false;
+    class User
+    {
+
+        private function isset()
+        {
+            return  isset($_SESSION['user']['id']) &&
+                !empty($_SESSION['user']['id']) &&
+                $_SESSION['user']['id'] !== null &&
+                $_SESSION['user']['id'] > 0 ? true : false;
         }
-        
+
         public function setUser($id, $name, $email, $acount, $role, $roleName)
         {
             $_SESSION['user']['id']             = $id;
@@ -33,10 +36,10 @@
 
         public function getRoleId()
         {
-            return  $this->isset() && 
-                    !empty($_SESSION['user']['roleId']) ? $_SESSION['user']['roleId'] : false;
+            return  $this->isset() &&
+                !empty($_SESSION['user']['roleId']) ? $_SESSION['user']['roleId'] : false;
         }
-        
+
 
         public function clearUser()
         {
@@ -56,15 +59,29 @@
 
         public function haveAccess($controller, $method)
         {
-            
-        }
-        
-        public function changPage($controller, $method, $parram = array())
-        {
-            
-            if(strlen($controller) > 0 & strlen($method) > 0 )
-            $url = 'location:index.php?controller=' ;
+            try {
+
+                $permissions = array_change_key_case($this->getPermissions(), CASE_LOWER);
+                if(in_array(strtolower($controller), array_keys($permissions))){
+                    $functionOfPermission = array_change_key_case($permissions[strtolower($controller)], CASE_LOWER);
+                    return in_array(strtolower($method), array_keys($functionOfPermission)) && $functionOfPermission[strtolower($method)] == 0 ? true : false;
+                }else{
+                    return false;
+                }
+            } catch (\Exception $e) {
+                echo ('Error Code: '    . $e->getCode()     . '<br>');
+                echo ('Error: '         . $e->getMessage()  . '<br>');
+                echo ('Line: '          . $e->getLine()     . '<br>');
+                echo ('File: '          . $e->getFile()     . '<br>');
+                exit();
+            }
         }
 
+        public function changPage($controller, $method, $parram = array())
+        {
+
+            if (strlen($controller) > 0 & strlen($method) > 0)
+                $url = 'location:index.php?controller=';
+        }
     } // end class
- } // end namespace
+} // end namespace

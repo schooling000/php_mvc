@@ -45,34 +45,33 @@ try {
         $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
         $method     = DEFAULT_METHOD;
         $param      = array();
-        echo $controller;
-        
-        $controller = class_exists($controller) ? new $controller($db) : false;
-        $method     = method_exists($controller, $method)? $method : false;
-        
-        if( $controller !== false && $method !== false){
-            call_user_func_array(array($controller, $method), $param);
-        }else{
-            throw new Exception('Class Dang_nhap hoặc Method Dang_nhap Không Tồn Tại', ERRNO_NOT_FOUND);
+    } else {
+        if ($user->haveAccess($url['controller'], $url['method'])) {
+            $controller = isset($url['controller']) & !empty($url['controller']) ? DS . 'app' . DS . 'controller' . DS . ucwords($url['controller']) : null;
+            unset($url['controller']);
+
+            $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
+            unset($url['method']);
+
+            $param = isset($url['param']) ? $url['param'] : array();
+            unset($url['param']);
+        } else {
+            $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
+            $method     = DEFAULT_METHOD;
+            $param      = array();
         }
-
-        exit();
     }
-    
-    // NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP 
 
-    // LẤY CONTROLLER VÀ METHOD TRÊN URL
-    $controller = isset($url['controller']) & !empty($url['controller']) ? $url['controller'] : null;
-    unset($url['controller']);
+    $controller = class_exists($controller) ? new $controller($db) : false;
+    $method     = $controller !== false && method_exists($controller, $method) ? $method : false;
 
-    $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
-    unset($url['method']);
-
-    $param = isset($url['param']) ? $url['param'] : array();
-    unset($url['param']);
+    if ($controller !== false && $method !== false) {
+        call_user_func_array(array($controller, $method), $param);
+    } else {
+        throw new Exception('Class Dang_nhap hoặc Method Dang_nhap Không Tồn Tại', ERRNO_NOT_FOUND);
+    }
 
     unset($url);
-
 } catch (\PDOException $e) {
     echo ('Error Code: '    . $e->getCode()     . '<br>');
     echo ('Error: '         . $e->getMessage()  . '<br>');
