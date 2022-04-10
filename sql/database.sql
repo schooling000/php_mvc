@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS NHAN_VIEN(
 
 
 INSERT INTO `quyen_nhan_vien` (`MA_QUYEN_NHAN_VIEN`, `TEN_QUYEN_NHAN_VIEN`) VALUES ('ADMIN', 'Quản Trị Viên'), ('PHAU_THUAT_VIEN', 'Phẩu Thuật Viên');
-INSERT INTO `nhiem_vu_nhan_vien` (`ID`, `MA_QUYEN_NHAN_VIEN`, `MA_NHIEM_VU_NHAN_VIEN`, `TEN_NHIEM_VU_NHAN_VIEN`, `DUOC_PHEP_XEM`, `DUOC_PHEP_THEM`, `DUOC_PHEP_SUA`, `DUOC_PHEP_XOA`, `DUOC_PHEP_MO_MODAL_SUA`, `DUOC_PHEP_MO_MODAL_XOA`, `HREF`) VALUES (NULL, 'ADMIN', 'NHAN_VIEN', 'Nhân Viên', TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 'index.php?controller=nhan_vien&method=nhan_vien');
+INSERT INTO `nhiem_vu_nhan_vien` (`ID`, `MA_QUYEN_NHAN_VIEN`, `MA_NHIEM_VU_NHAN_VIEN`, `TEN_NHIEM_VU_NHAN_VIEN`, `XEM_TRANG`, `THEM_TRANG`, `SUA_TRANG`, `XOA_TRANG`, `DUOC_PHEP_MO_MODAL_SUA`, `DUOC_PHEP_MO_MODAL_XOA`, `HREF`) VALUES (NULL, 'ADMIN', 'NHAN_VIEN', 'Nhân Viên', TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 'index.php?controller=nhan_vien&method=nhan_vien');
 INSERT INTO `nhan_vien` (`MA_NHAN_VIEN`, `HO_TEN_NHAN_VIEN`, `EMAIL_NHAN_VIEN`, `TAI_KHOAN_NHAN_VIEN`, `MAT_KHAU_NHAN_VIEN`, `MA_QUYEN_NHAN_VIEN`) VALUES (NULL, 'Huỳnh Thanh Lộc', 'schooling010@gmail.com', 'LOCHT', '827ccb0eea8a706c4c34a16891f84e7b', 'ADMIN');
 
 DELIMITER $$
@@ -60,10 +60,10 @@ CREATE PROCEDURE  GET_PERMISSIONS(IN ROLE_ID VARCHAR(30) CHARACTER SET UTF8)
 BEGIN 
     SELECT  MA_NHIEM_VU_NHAN_VIEN ,
             TEN_NHIEM_VU_NHAN_VIEN,
-            DUOC_PHEP_XEM,
-            DUOC_PHEP_THEM,        
-            DUOC_PHEP_SUA,         
-            DUOC_PHEP_XOA,         
+            XEM_TRANG,
+            THEM_TRANG,        
+            SUA_TRANG,         
+            XOA_TRANG,         
             DUOC_PHEP_MO_MODAL_SUA,
             DUOC_PHEP_MO_MODAL_XOA,
             HREF

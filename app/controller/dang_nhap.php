@@ -44,7 +44,7 @@
 
                             $this->user->setPermissions($this->model->getPermissions($this->user->getRoleId()));
 
-                            $this->user->changPage('nhan_vien', 'nhan_vien', ['dlkajfld','dsfjsdafsdf','fsdafsad']);
+                            $this->user->changPage('nhan_vien', 'xem_trang');
                         }else{
                             
                         }

@@ -1,4 +1,4 @@
-<?php $this->set_web_title('Đăng Nhập'); ?>
+<?php $this->setWebTitle('Đăng Nhập'); ?>
 
 <?php $this->start(\core\Views::WEB_ELEMENT_CONTENT); ?>
 <div class="w3-login">

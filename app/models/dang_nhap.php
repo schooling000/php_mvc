@@ -34,10 +34,10 @@ namespace app\models {
                 foreach ($result as $key => $value) {
                     $permissions[$value['MA_NHIEM_VU_NHAN_VIEN']] = [
                         'TEN_NHIEM_VU_NHAN_VIEN'=>$value['TEN_NHIEM_VU_NHAN_VIEN'],
-                        'DUOC_PHEP_XEM'=>$value['DUOC_PHEP_XEM'],
-                        'DUOC_PHEP_THEM,       '=>$value['DUOC_PHEP_THEM'],
-                        'DUOC_PHEP_SUA,        '=>$value['DUOC_PHEP_SUA'],
-                        'DUOC_PHEP_XOA,        '=>$value['DUOC_PHEP_XOA'],
+                        'XEM_TRANG'=>$value['XEM_TRANG'],
+                        'THEM_TRANG,       '=>$value['THEM_TRANG'],
+                        'SUA_TRANG,        '=>$value['SUA_TRANG'],
+                        'XOA_TRANG,        '=>$value['XOA_TRANG_TRANG'],
                         'DUOC_PHEP_MO_MODAL_SUA'=>$value['DUOC_PHEP_MO_MODAL_SUA'],
                         'DUOC_PHEP_MO_MODAL_XOA'=>$value['DUOC_PHEP_MO_MODAL_XOA'],
                         'HREF'=>$value['HREF']

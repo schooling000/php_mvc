@@ -18,7 +18,11 @@ namespace core{
         public function setModel($modelName, &$db)
         {
             $model = DS . 'app' . DS . 'models' . DS . ucwords($modelName);
-            return new $model($db);
+            if(class_exists($model)){
+                return new $model($db);
+            }else{
+                throw new \Exception('Không Tìm Thấy File Chứa Class: ' . $model, ERRNO_NOT_FOUND);
+            }
         }
 
         public function setView($contenName = '', $layoutName = DEFAULT_LAYOUT, $data = array())

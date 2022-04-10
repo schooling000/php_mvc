@@ -60,7 +60,7 @@ namespace core {
             }
         }
 
-        public function set_web_title($web_title = DEFAULT_WEB_NAME)
+        public function setWebTitle($web_title = DEFAULT_WEB_NAME)
         {
             $this->web_title = $web_title;
         }
