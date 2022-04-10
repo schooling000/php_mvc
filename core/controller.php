@@ -2,13 +2,15 @@
 namespace core{
     
     class Controller{
-        private $view       = null;
-        private $model     = null;
-        private static $db  = null;
+        private $view           = null;
+        private $model          = null;
+        private static $db      = null;
+        private static $message = null;
 
-        public function __construct(&$db)
+        public function __construct(&$db, &$message)
         {
-            self::$db = $db;   
+            self::$db        = $db;   
+            self::$message   = $message;
         }
 
         public function setModel($modelName, &$db)

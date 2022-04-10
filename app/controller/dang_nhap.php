@@ -2,11 +2,12 @@
     namespace app\controller{
         class Dang_nhap extends \core\Controller{
 
-            public function __construct(&$db)
+            public function __construct(&$db, &$message)
             {
-                parent::__construct($db);
+                parent::__construct($db, $message);
                 $this->model = $this->setModel('dang_nhap', $db);
                 $this->view = $this->setView('dang_nhap');
+                $this->view->addData('dang_nhap', $message->selectMessage('dang_nhap')['value']);
             }
 
             public function dang_nhap()

@@ -85,7 +85,7 @@ namespace core {
                     break;
 
                 default:
-                    exit('Class Views: Không Tìm Thấy Element');
+                    exit('Class Views: Không Tìm Thấy Element: ' . $element);
                     break;
             }
         }
@@ -94,7 +94,7 @@ namespace core {
         {
 
             if ($element == null) {
-                exit('Class Views: $element Không Đực Bổ Trống');
+                throw new \Exception('Class Views: $element Không Đực Bổ Trống', ERRNO_DATA_INPUT);
             }
 
             $this->data_buffer = $element;
@@ -132,7 +132,7 @@ namespace core {
             require_once $this->file_layout;
         }
 
-        public function add_data($key = null, $value = null)
+        public function addData($key = null, $value = null)
         {
             if ($key == null || $key == '') {
                 exit('Class Views: $key Không Được Để Trống');
@@ -159,7 +159,7 @@ namespace core {
             return $this;
         }
 
-        public function select_data($key = null)
+        public function selectData($key = null)
         {
             if ($key == null || $key == '' || !isset($this->data[$key])) {
                 return '';

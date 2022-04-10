@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 // DEFINE INFO MYSQL DATABASE
 const DB_HOST = 'localhost';
@@ -20,7 +21,3 @@ const MESSAGE_TYPE_SUCCESS = 'success';
 // DEFINE ERROR CODE TYPE
 const ERRNO_NOT_FOUND = 500; // NOT FOUND FILE OR CLASS, METHOD, DIRECTORY
 const ERRNO_DATA_INPUT = 501; // DATA ĐƯA VÀO KHÔNG ĐÚNG ĐỊNH DẠNH
-
-
-
-

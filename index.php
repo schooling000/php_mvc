@@ -1,4 +1,7 @@
 <?php
+
+use config\Config;
+
 ob_start();
 session_start();
 
@@ -20,82 +23,89 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-try {
-    // CREATE VALUEBLE 
-    $db         = null;
-    $user       = null;
-    $message    = null;
 
-    $url        = null;
-    $controller = null;
-    $method     = null;
-    $param      = array();
+$app = new \core\App();
+$app->getRequest()->Processing();
+unset($app);
 
-    // CREATE CONTROLL USER FOR APP
-    $user       = new \core\User();
-    $message    = new \core\Message();
+// try {
+//     // CREATE VALUEBLE 
+//     $db         = null;
+//     $user       = null;
+//     $message    = null;
 
-    // CREATE CONNECT TO DB;
-    $db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//     $url        = null;
+//     $controller = null;
+//     $method     = null;
+//     $param      = array();
 
-    // GET INFOR CONTROLLER, METHOD, PARAM IN URL;
-    $url = $_REQUEST;
+//     // CREATE CONTROLL USER FOR APP
+//     $user       = new \core\User();
+//     $message    = new \core\Message();
 
-    // NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
-    if (!$user->Logged()) {
-        $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
-        $method     = DEFAULT_METHOD;
-        $param      = array();
-    } else {
-        if ($user->haveAccess($url['controller'], $url['method'])) {
-            $controller = isset($url['controller']) & !empty($url['controller']) ? DS . 'app' . DS . 'controller' . DS . ucwords($url['controller']) : null;
-            unset($url['controller']);
+//     // CREATE CONNECT TO DB;
+//     $db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+//     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
-            unset($url['method']);
+//     // GET INFOR CONTROLLER, METHOD, PARAM IN URL;
+//     $url = $_REQUEST;
 
-            $param = isset($url['param']) ? $url['param'] : array();
-            unset($url['param']);
-        } else {
-            $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
-            $method     = DEFAULT_METHOD;
-            $param      = array();
-            $message->deleteMessage();
-            $message->addMessage('form_dang_nhap',MESSAGE_TYPE_ERROR,'Bạn Hiện Chưa Có Quyền Với Chức Năng Này Mời Đăng Nhập');
-        }
-    }
+//     // NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
+//     if (!$user->Logged()) {
+//         $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
+//         $method     = DEFAULT_METHOD;
+//         $param      = array();
+//     } else {
+//         if ($user->haveAccess($url['controller'], $url['method'])) {
+//             $controller = isset($url['controller']) & !empty($url['controller']) ? DS . 'app' . DS . 'controller' . DS . ucwords($url['controller']) : null;
+//             unset($url['controller']);
 
-    $controller = class_exists($controller) ? new $controller($db) : false;
-    $method     = $controller !== false && method_exists($controller, $method) ? $method : false;
+//             $method = isset($url['method']) & !empty($url['method']) ? $url['method'] : null;
+//             unset($url['method']);
 
-    if ($controller !== false && $method !== false) {
-        call_user_func_array(array($controller, $method), $param);
-    } else {
-        throw new Exception('Class Dang_nhap hoặc Method Dang_nhap Không Tồn Tại', ERRNO_NOT_FOUND);
-    }
+//             $param = isset($url['param']) ? $url['param'] : array();
+//             unset($url['param']);
+//         } else {
+//             $controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
+//             $method     = DEFAULT_METHOD;
+//             $param      = array();
+//             $message->deleteMessage();
+//             $message->addMessage(   'form_dang_nhap', 
+//                                     MESSAGE_TYPE_ERROR,
+//                                     'Bạn Hiện Chưa Có Quyền Với Chức Năng Này Mời Đăng Nhập Tài Khoản Khác Để Có Quyền Truy Cập');
+//         }
+//     }
 
-    unset($url);
-} catch (\PDOException $e) {
-    echo ('Error Code: '    . $e->getCode()     . '<br>');
-    echo ('Error: '         . $e->getMessage()  . '<br>');
-    echo ('Line: '          . $e->getLine()     . '<br>');
-    echo ('File: '          . $e->getFile()     . '<br>');
-    exit();
-} catch (\Exception $e) {
-    echo ('Error Code: '    . $e->getCode()     . '<br>');
-    echo ('Error: '         . $e->getMessage()  . '<br>');
-    echo ('Line: '          . $e->getLine()     . '<br>');
-    echo ('File: '          . $e->getFile()     . '<br>');
-    exit();
-} finally {
+//     $controller = class_exists($controller) ? new $controller($db) : false;
+//     $method     = $controller !== false && method_exists($controller, $method) ? $method : false;
 
-    unset($db);
-    unset($user);
-    unset($message);
+//     if ($controller !== false && $method !== false) {
+//         call_user_func_array(array($controller, $method), $param);
+//     } else {
+//         throw new Exception('Class ' . $controller . ' hoặc Method ' . $method . ' Không Tồn Tại', ERRNO_NOT_FOUND);
+//     }
 
-    $db         = null;
-    $user       = null;
-    $message    = null;
-}
+//     unset($url);
+// } catch (\PDOException $e) {
+//     echo ('Error Code: '    . $e->getCode()     . '<br>');
+//     echo ('Error: '         . $e->getMessage()  . '<br>');
+//     echo ('Line: '          . $e->getLine()     . '<br>');
+//     echo ('File: '          . $e->getFile()     . '<br>');
+//     exit();
+// } catch (\Exception $e) {
+//     echo ('Error Code: '    . $e->getCode()     . '<br>');
+//     echo ('Error: '         . $e->getMessage()  . '<br>');
+//     echo ('Line: '          . $e->getLine()     . '<br>');
+//     echo ('File: '          . $e->getFile()     . '<br>');
+//     exit();
+// } finally {
+
+//     unset($db);
+//     unset($user);
+//     unset($message);
+
+//     $db         = null;
+//     $user       = null;
+//     $message    = null;
+// }
 ob_end_flush();
