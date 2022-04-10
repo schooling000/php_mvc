@@ -8,9 +8,9 @@ namespace core {
         private function isset()
         {
             return  isset($_SESSION['user']['id']) &&
-                    !empty($_SESSION['user']['id']) &&
-                    $_SESSION['user']['id'] !== null &&
-                    $_SESSION['user']['id'] > 0 ? true : false;
+                !empty($_SESSION['user']['id']) &&
+                $_SESSION['user']['id'] !== null &&
+                $_SESSION['user']['id'] > 0 ? true : false;
         }
 
         public function setUser($id, $name, $email, $acount, $role, $roleName)
@@ -24,9 +24,14 @@ namespace core {
             $_SESSION['user']['permissions']    = null;
         }
 
-        public function setUserPermissions($permissions)
+        public function setPermissions($permissions)
         {
             $_SESSION['user']['permissions'] = $permissions;
+        }
+
+        public function getUser()
+        {
+            return $this->isset() ? $_SESSION['user'] : false;
         }
 
         public function getPermissions()
@@ -49,6 +54,10 @@ namespace core {
             $_SESSION['user']['acount']         = null;
             $_SESSION['user']['role']           = null;
             $_SESSION['user']['roleName']       = null;
+
+            foreach ($_SESSION['user']['permissions'] as $key => $value) {
+                unset($_SESSION['user']['permissions'][$key]);
+            }
             $_SESSION['user']['permissions']    = null;
         }
 
@@ -61,10 +70,10 @@ namespace core {
         {
             try {
                 $permissions = array_change_key_case($this->getPermissions(), CASE_LOWER);
-                if(in_array(strtolower($controller), array_keys($permissions))){
+                if (in_array(strtolower($controller), array_keys($permissions))) {
                     $functionOfPermission = array_change_key_case($permissions[strtolower($controller)], CASE_LOWER);
                     return in_array(strtolower($method), array_keys($functionOfPermission)) && $functionOfPermission[strtolower($method)] == true ? true : false;
-                }else{
+                } else {
                     return false;
                 }
             } catch (\Exception $e) {
@@ -76,10 +85,22 @@ namespace core {
             }
         }
 
-        public function changPage($controller, $method, $parram = array())
+        public function changPage($controller, $method, $param = array())
         {
 
-            if (strlen($controller) > 0 & strlen($method) > 0)
+            if (strlen($controller) > 0 & strlen($method) > 0){
+                if(count($param) == 0){
+                    header('location:index.php?controller=' . $controller . '&method=' . $method);
+                }else{
+                    $str_param = '';
+                    foreach ($param as $key => $value) {
+                        $str_param .= 'param[]=' . $value . '&';
+                    }
+                    header('location:index.php?controller=' . $controller . '&method=' . $method . '&' . $str_param);
+                }
+            }else{
+                throw new \Exception('Controller Hoặc Method Không Được Trống', ERRNO_DATA_INPUT);
+            }
                 $url = 'location:index.php?controller=';
         }
     } // end class

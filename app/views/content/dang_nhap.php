@@ -20,10 +20,12 @@
             <ul class="w3-border w3-border-red w3-text-red">
                 <?php if(isset($data['tai_khoan_nhan_vien']['value'])){ echo '<li>' . $data['tai_khoan_nhan_vien']['value'] . '</li>'; }?></li>
                 <?php if(isset($data['mat_khau_nhan_vien']['value'])){ echo '<li>' . $data['mat_khau_nhan_vien']['value'] . '</li>'; }?></li>
-                <?php echo '<li>' . $this->selectData('dang_nhap') . '</li>';?></li>
+                <?php if(isset($_SESSION['message']['dang_nhap']['value']) && !empty($_SESSION['message']['dang_nhap']['value'])) {echo '<li>' . $_SESSION['message']['dang_nhap']['value'] . '</li>';}?></li>
             </ul>
         </div>
 
     </div>
 </div>
 <?php $this->end(); ?>
+
+<?php unset($_SESSION['message']);?>

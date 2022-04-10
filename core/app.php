@@ -48,8 +48,8 @@ namespace core {
         public function Processing()
         {
             try {
-                // KIỂM TRA NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP CHƯA
-                if (!$this->user->logged()) {
+                // KIỂM TRA URL CHƯA CÓ THÔNG TIN CONTROLLER VÀ METHOD HOẶC NGƯỜI DÙNG CHƯA ĐĂNG NHẬP
+                if (empty($this->url) || !$this->user->logged()) {
                     $this->controller = DS . 'app' . DS . 'controller' . DS . ucwords(DEFAULT_CONTROLLER);
                     $this->method     = DEFAULT_METHOD;
                     $this->param      = array();
@@ -60,7 +60,7 @@ namespace core {
                     $this->param      = array();
                     $this->message->deleteMessage();
                     $this->message->addMessage('dang_nhap', MESSAGE_TYPE_ERROR, 'Bạn Không Có Quyền Truy Cập');
-                // KIỂM TRA NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP CÓ QUYỀN TRUY CẬP CONTROLLER VÀ METHOD
+                // KIỂM TRA NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP VÀ CÓ QUYỀN TRUY CẬP CONTROLLER VÀ METHOD
                 } elseif ($this->user->logged() && $this->user->haveAccess($this->url['controller'], $this->url['method'])) {
                     $this->controller = isset($this->url['controller']) & !empty($this->url['controller']) ? DS . 'app' . DS . 'controller' . DS . ucwords($this->url['controller']) : null;
                     unset($this->url['controller']);
@@ -75,7 +75,8 @@ namespace core {
                     throw new \Exception('Lổi Sử Lý Controller: ' . $this->controller . 'Và Method: ' . $this->method, ERRNO_DATA_INPUT);
                 }
 
-                $this->controller = class_exists($this->controller) ? new $this->controller($this->db, $this->message) : false;
+                // KHỞI TẠO TỰ ĐỘNG CONTROLLER VÀ CHẠY CÁC METHOD CỦA CONTROLLER ĐÓ
+                $this->controller = class_exists($this->controller) ? new $this->controller($this->db, $this->message,$this->user) : false;
                 $this->method     = $this->controller !== false && method_exists($this->controller, $this->method) ? $this->method : false;
 
                 if ($this->controller !== false && $this->method !== false) {

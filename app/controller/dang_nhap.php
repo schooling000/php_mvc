@@ -2,12 +2,11 @@
     namespace app\controller{
         class Dang_nhap extends \core\Controller{
 
-            public function __construct(&$db, &$message)
+            public function __construct(&$db, &$message, &$user)
             {
-                parent::__construct($db, $message);
+                parent::__construct($db, $message, $user);
                 $this->model = $this->setModel('dang_nhap', $db);
                 $this->view = $this->setView('dang_nhap');
-                $this->view->addData('dang_nhap', $message->selectMessage('dang_nhap')['value']);
             }
 
             public function dang_nhap()
@@ -36,16 +35,16 @@
                         
                         if(!empty($result)){
                             global $user;
-                            $user->setUser($result[0]['MA_NHAN_VIEN'], 
+                            $this->user->setUser($result[0]['MA_NHAN_VIEN'], 
                                            $result[0]['HO_TEN_NHAN_VIEN'],
                                            $result[0]['EMAIL_NHAN_VIEN'], 
                                            $result[0]['TAI_KHOAN_NHAN_VIEN'],
                                            $result[0]['MA_QUYEN_NHAN_VIEN'],
                                            $result[0]['TEN_QUYEN_NHAN_VIEN']);
-                            
-                            $user->setUserPermissions($this->model->getPermissions($user->getRoleId()));
 
-                            header('location:index.php?controller=nhan_vien&&method=nhan_vien');
+                            $this->user->setPermissions($this->model->getPermissions($this->user->getRoleId()));
+
+                            $this->user->changPage('nhan_vien', 'nhan_vien', ['dlkajfld','dsfjsdafsdf','fsdafsad']);
                         }else{
                             
                         }

@@ -5,12 +5,14 @@ namespace core{
         private $view           = null;
         private $model          = null;
         private static $db      = null;
-        private static $message = null;
+        protected $message      = null;
+        protected $user         = null;
 
-        public function __construct(&$db, &$message)
+        public function __construct(&$db, &$message, &$user)
         {
-            self::$db        = $db;   
-            self::$message   = $message;
+            self::$db       = $db;   
+            $this->message  = $message;
+            $this->user     = $user;
         }
 
         public function setModel($modelName, &$db)
