@@ -25,7 +25,7 @@
     <button class="w3-bar-item w3-button w3-border w3-center w3-hide-large w3-grey" onclick="controllSideBar()">
         <b>Close</b>
     </button>
-    <?php if($data['trang_chu'])){echo '<a href="" class="w3-bar-item w3-button w3-border-bottom w3-border-top w3-blue">Trang Chủ</a>';}?>
+    <?php if($data['trang_chu']){echo '<a href="" class="w3-bar-item w3-button w3-border-bottom w3-border-top w3-blue">Trang Chủ</a>';}?>
     
     <a href="" class="w3-bar-item w3-button w3-border-bottom">Trang Chủ</a>
     <a href="" class="w3-bar-item w3-button w3-border-bottom">Trang Chủ</a>

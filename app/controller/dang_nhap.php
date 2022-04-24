@@ -1,12 +1,14 @@
 <?php
     namespace app\controller{
+        
         class Dang_nhap extends \core\Controller{
 
             public function __construct(&$db, &$message, &$user)
             {
                 parent::__construct($db, $message, $user);
                 $this->model = $this->setModel('dang_nhap', $db);
-                $this->view = $this->setView('dang_nhap');
+                $this->view = $this->setView('dang_nhap','layout_dang_nhap');
+                $this->view->clearSidebar();
             }
 
             public function dang_nhap()

@@ -27,7 +27,7 @@ namespace core {
         public function __construct($file_content = null, $file_layout = null, $data = array())
         {
 
-            $this->data = !empty($data)? $data : array();
+            $this->data = !empty($data) ? $data : array();
 
             if (file_exists(ROOT_PATH . DS . 'app' . DS . 'views' . DS . 'content' . DS . strtolower($file_content) . '.php')) {
                 $this->file_content = ROOT_PATH . DS . 'app' . DS . 'views' . DS . 'content' . DS . strtolower($file_content) . '.php';
@@ -58,6 +58,11 @@ namespace core {
             } else {
                 throw new Exception('Class Views: Không Tìm Thấy File Content Với Tên ' . strtoupper($file_layout), ERRNO_NOT_FOUND);
             }
+        }
+
+        public function clearSidebar()
+        {
+            $this->web_sidebar = null;
         }
 
         public function setWebTitle($web_title = DEFAULT_WEB_NAME)
@@ -186,6 +191,26 @@ namespace core {
         public function select_message($key = null)
         {
             return isset($_SESSION['message'][$key]) ? $_SESSION['message'][$key] : $_SESSION['message'];
+        }
+
+        public function messageBox($type = null, array $element = array())
+        {
+            $content = '<div class="w3-container">';
+
+            if ($type == MESSAGE_TYPE_ERROR) {
+                $content .= '<ul class="w3-border w3-border-red w3-text-red">';
+            }
+            if ($type == MESSAGE_TYPE_SUCCESS) {
+                $content .= '<ul class="w3-border w3-border-blue w3-text-blue">';
+            }
+
+            foreach ($element as $key => $value) {
+                $content .= '<li>' . $value . '</li>';
+            }
+            
+            $content .= '</ul>';
+            $content .= '</div>';
+            echo $content;
         }
     }
 }

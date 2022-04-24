@@ -15,15 +15,8 @@
             <br>
             <button type="submit" name="btn_dang_nhap" value="true" class="w3-button w3-round w3-block w3-blue"><b>Đăng Nhập</b></button>
         </form>
-
-        <div class="w3-container">
-            <ul class="w3-border w3-border-red w3-text-red">
-                <?php if(isset($data['tai_khoan_nhan_vien']['value'])){ echo '<li>' . $data['tai_khoan_nhan_vien']['value'] . '</li>'; }?></li>
-                <?php if(isset($data['mat_khau_nhan_vien']['value'])){ echo '<li>' . $data['mat_khau_nhan_vien']['value'] . '</li>'; }?></li>
-                <?php if(isset($_SESSION['message']['dang_nhap']['value']) && !empty($_SESSION['message']['dang_nhap']['value'])) {echo '<li>' . $_SESSION['message']['dang_nhap']['value'] . '</li>';}?></li>
-            </ul>
-        </div>
-
+        <?php $this->messageBox(MESSAGE_TYPE_ERROR, ['FDSKJKLSDJFLKJSDLJF','DSFSADFSD']);?>
+        <br>
     </div>
 </div>
 <?php $this->end(); ?>
