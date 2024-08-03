@@ -4,9 +4,9 @@
 
     namespace app\core{
 
-        use core\request\Request;
-        use core\request\Response;
-        use core\request\Rounter;
+        use app\core\request\Request;
+        use app\core\request\Response;
+        use app\core\request\Rounter;
 
 
         class App{
