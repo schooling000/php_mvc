@@ -2,14 +2,15 @@
 
     declare(strict_types=1);
 
-    namespace app\core{
+    namespace app{
 
+        use app\core\router\Router;
         use app\core\request\Request;
-        use app\core\request\Response;
-        use app\core\request\Rounter;
+        use app\core\response\Response;
 
 
         class App{
+
             private Request $request;
             private Response $response;
             public Router $router;
