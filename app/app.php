@@ -14,7 +14,7 @@ namespace app {
 
         private Request $request;
         private Responsive $responsive;
-        private Router $router;
+        public  Router $router;
 
         public function __construct()
         {
@@ -23,8 +23,10 @@ namespace app {
             $this->router = new Router($this->request, $this->responsive);
         }
 
+
+
         public function run() : void {
-            print_r($this->request->getRequestParam());
+            $this->router->debug();
         }
     }
 }

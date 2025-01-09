@@ -3,6 +3,8 @@
 
     use app\App;
     use app\help\Help;
+    use app\middleware\User;
+    use app\middleware\Validate;
 
     define('DS', DIRECTORY_SEPARATOR);
     define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].DS."..");
@@ -22,4 +24,6 @@
     });
 
     $app = new App();
+    $app->router->get('/',function(){echo 'chào bạn';})->middleware(new Validate())
+                                                       ->middleware(new User());
     $app->run();
