@@ -9,5 +9,6 @@ namespace app\core {
     abstract class Middleware
     {
         abstract public function execute(Request $request): Request;
+        abstract public function errorMessage(): string;
     }
 }

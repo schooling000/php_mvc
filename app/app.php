@@ -27,6 +27,7 @@ namespace app {
 
         public function run() : void {
             $this->router->debug();
+            $this->router->execute();
         }
     }
 }

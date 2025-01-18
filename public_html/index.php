@@ -24,6 +24,6 @@
     });
 
     $app = new App();
-    $app->router->get('/',function(){echo 'chào bạn';})->middleware(new Validate())
-                                                       ->middleware(new User());
+    $app->router->get('/','chào bạn');
+
     $app->run();
