@@ -8,5 +8,8 @@ namespace app\controller {
 
     class Autheruser extends Controllers
     {
+        public function index() : void {
+            echo 'ban can dang nhap';
+        }
     }
 }

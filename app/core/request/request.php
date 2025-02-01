@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\core {
+namespace app\core\request {
 
     class Request
     {
@@ -42,6 +42,16 @@ namespace app\core {
                 "method" => $this->getMethod(),
                 "param" => $this->getParam()
             );
+        }
+
+        public function debug() : void {
+            echo '=====================REQUEST DEBUD==============================';
+            echo '<pre>';
+            echo 'Request Path: "<b>'.$this->getPathURL().'</b>"<br>';
+            echo 'Request Method: "<b>'.$this->getMethod().'</b>"<br>';
+            echo 'Request Param: "<b>'. json_encode($this->getParam()).'</b>"<br>';
+            echo '</pre>';
+            echo '================================================================';
         }
     }
 }

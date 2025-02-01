@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace app\core {
+namespace app\core\router {
 
-    use app\core\Request;
-    use app\core\Responsive;
-    use app\core\Middleware;
+    use app\core\request\Request;
+    use app\core\response\Response;
+    use app\core\middlewares\Middlewares;
 
     class Router
     {
 
         private Request $request;
-        private Responsive $responsive;
+        private Response $response;
         private $routers = array();
 
-        public function __construct(Request &$request, Responsive &$responsive)
+        public function __construct(Request &$request, Response &$response)
         {
             $this->request = $request;
-            $this->responsive = $responsive;
+            $this->response = $response;
         }
 
         public function get(?string $path, $callback): Router
@@ -43,7 +43,7 @@ namespace app\core {
             return $this;
         }
 
-        public function middleware(Middleware $middleware): Router
+        public function middleware(Middlewares $middleware): Router
         {
             $this->routers[array_key_last($this->routers)]['middleware'][] = $middleware;
             return $this;
@@ -64,35 +64,38 @@ namespace app\core {
             }
 
             if (empty($callback)) {
-                $this->responsive->render404Page($request['path']);
+                $this->response->render404Page($request['path']);
                 exit;
-            } elseif (empty($middleware)) {
-                if (is_string($callback)) {
-                    echo $callback;
-                    return;
-                } elseif (is_callable($callback)) {
-                    call_user_func($callback, $request['param']);
-                    return;
-                } elseif (is_array($callback)) {
-                    $controller = new $callback[0]();
-                    $action = $callback[1];
-                    call_user_func_array(array($controller, $action), $request['param']);
-                }
-            } else {
-
-                foreach ($middlewares as $middleware) {
-                    $request = $middleware->execute($request);
-                }
-
-                
             }
-        }   
+
+            if (!empty($middlewares)) {
+                foreach ($middlewares as $middleware) {
+                    if (!empty($middleware->executed($this->request, $callback))) {
+                        $request = $middleware->executed($this->request, $callback);
+                        break;
+                    }
+                }
+            }
+            
+
+            if (is_string($callback)) {
+                echo $callback;
+                return;
+            } elseif (is_callable($callback)) {
+                call_user_func($callback, $request['param']);
+                return;
+            } elseif (is_array($callback)) {
+                $controller = new $callback[0]($this->response);
+                $action = $callback[1];
+                call_user_func_array(array($controller, $action), $request['param']);
+            }
+        }
 
         public function debug(): void
         {
             echo "<pre>";
             print_r($this->request);
-            print_r($this->responsive);
+            print_r($this->response);
             print_r($this->routers);
             echo "</pre>";
         }
@@ -100,7 +103,7 @@ namespace app\core {
         public function __destruct()
         {
             unset($this->request);
-            unset($this->responsive);
+            unset($this->response);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace app\core\middlewares {
 
     abstract class Middlewares
     {
-        abstract public function executed(Request $request, Response $response): Response;
+        abstract public function executed(Request $request, &$callback): array|false;
     }
 }

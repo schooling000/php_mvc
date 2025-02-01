@@ -8,5 +8,8 @@ namespace app\controller {
 
     class Home extends Controllers
     {
+        public function index() : void {
+            echo 'trang home';
+        }
     }
 }
