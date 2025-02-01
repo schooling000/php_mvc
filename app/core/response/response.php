@@ -6,7 +6,7 @@ namespace app\core\response {
 
     class Response
     {
-        public function renderPage(?string $path, $data = array()) : void {
+        public static function renderPage(?string $path, $data = array()) : void {
             
         }
                

@@ -2,6 +2,8 @@
 
 use app\App;
 use app\help\Help;
+use app\controller\Autheruser;
+use app\controller\Home;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . DS . '..' . DS);
@@ -23,5 +25,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+
 $app = new App();
-$app->router->debug();
+$app->router->get('/', array(Autheruser::class, 'view'));
+$app->router->get('/login', array(Autheruser::class, 'login'));
+$app->router->get('/logout', array(Autheruser::class, 'logout'));
+
+$app->router->get('/home/view', array(Home::class, 'view'))->middleware(new \app\middleware\Autheruser());
+$app->debug();

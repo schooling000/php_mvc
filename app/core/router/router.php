@@ -46,15 +46,31 @@ namespace app\core\router {
             return $this;
         }
 
+        public function executed(): void
+        {
+            $callback = null;
+            $path = $this->request->getPath();
+            $method = $this->request->getMethod();
+            $param = $this->request->getParam();
 
-        public function debug() : void {
-            $this->request->debug();
+            if ($this->routers['path'] == $path && $this->routers['method'] == $method) {
+                $this->response::renderPage('')
+            }
+        }
+
+        public function debug(): void
+        {
+            echo '===================================<br>';
+            echo '===========ROUTER================<br>';
+            echo '===================================<br>';
+            echo '<pre>';
+            echo '- ';
+            print_r($this->routers);
+            echo '</pre>';
             echo '<br>';
-            echo '-----------------------------------------------<br>';
-            echo '-----------------------------------------------<br>';
-            echo '-----------------------------------------------<br>';
-            echo '-----------------------------------------------<br>';
-            echo '';
+            echo '===================================<br>';
+            echo '===================================<br>';
+            echo '===================================<br>';
         }
     }
 }
