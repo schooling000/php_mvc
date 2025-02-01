@@ -1,21 +1,16 @@
 <?php
+    declare(strict_types=1);
 
-declare(strict_types=1);
+    namespace app\help{
 
-namespace app\help {
+        class Help{
 
-    class Help
-    {
-        public static function dnd($value): void
-        {
-            echo '<pre>';
-            print_r($value);
-            echo '</pre>';
-        }
+            public const FILE_NOT_FOUND = "KHÔNG TÌM THẤY FILE VỚI ĐƯỜNG ĐẪN: ";
 
-        public static function displayError($data = array()): void
-        {
-            require_once ROOT_PATH . 'app' . DS . 'view' . DS . 'error' . DS . 'error.php';
+            public static function dnd($value) : void {
+                echo "<pre>";
+                print_r($value);
+                echo "</pre>";
+            }
         }
     }
-}
