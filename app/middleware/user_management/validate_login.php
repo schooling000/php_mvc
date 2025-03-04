@@ -13,16 +13,16 @@ namespace app\middleware\user_management {
     class Validate_login extends Middlewares
     {
 
-        public function executed(Request $request, &$callback): array
+        public function executed($request, $currentRouter): array
         {
-            $callback = array(User_managerment::class, 'view');
             return array(
+                'callback' => array(User_managerment::class, 'view'),
                 'path' => '/',
                 'method' => 'GET',
-                'param' => array('data' => array(
-                    'messageAccount' => 'Trường tài khoản không được trống', 
-                    'messagePassword' => 'Trường mật khẩu không được trống')
-                )
+                'param' => array('data'=> array(
+                    'messageAccount' => 'Trường tài khoản không được trống',
+                    'messagePassword' => 'Trường mật khẩu không được trống'
+                ))
             );
         }
     }

@@ -7,6 +7,7 @@ namespace app\core\router {
     use app\core\request\Request;
     use app\core\response\Response;
     use app\core\middlewares\Middlewares;
+    use app\help\Help;
 
     class Router
     {
@@ -51,43 +52,44 @@ namespace app\core\router {
 
         public function execute(): void
         {
-            $callback = null;
-            $middlewares = array();
+            $currentRouter = array();
 
             $request = $this->request->getRequestParam();
 
             foreach ($this->routers as $router) {
                 if ($router['path'] == $request['path'] && $router['method'] == $request['method']) {
-                    $callback = $router['callback'];
-                    $middlewares = $router['middleware'];
+                    $currentRouter = $router;
+                    $currentRouter['param'] = array();
                 }
             }
 
-            if (empty($callback)) {
+            if (empty($currentRouter['callback'])) {
                 $this->response->render404Page($request['path']);
                 exit;
             }
 
-            if (!empty($middlewares)) {
-                foreach ($middlewares as $middleware) {
-                    if (!empty($middleware->executed($this->request, $callback))) {
-                        $request = $middleware->executed($this->request, $callback);
+            if (!empty($currentRouter['middleware'])) {
+                foreach ($currentRouter['middleware'] as $middleware) {
+                    if (!empty($middleware->executed($request, $currentRouter))) {
+                        $currentRouter = $middleware->executed($request, $currentRouter);
                         break;
                     }
                 }
             }
-            
 
-            if (is_string($callback)) {
-                echo $callback;
+            Help::dnd($currentRouter);
+
+
+
+            if (is_string($currentRouter['callback'])) {
                 return;
-            } elseif (is_callable($callback)) {
-                call_user_func($callback, $request['param']);
+            } elseif (is_callable($currentRouter['callback'])) {
+                call_user_func($currentRouter['callback'], $currentRouter['param']);
                 return;
-            } elseif (is_array($callback)) {
-                $controller = new $callback[0]($this->response);
-                $action = $callback[1];
-                call_user_func_array(array($controller, $action), $request['param']);
+            } elseif (is_array($currentRouter['callback'])) {
+                $controller = new $currentRouter['callback'][0]($this->response);
+                $action = $currentRouter['callback'][1];
+                call_user_func_array(array($controller, $action), $currentRouter['param']);
             }
         }
 

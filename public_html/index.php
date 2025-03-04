@@ -28,6 +28,6 @@ spl_autoload_register(function ($className) {
 
 $app = new App();
 $app->router->get('/', array(User_managerment::class, 'view'));
-$app->router->post('/login', array(User_managerment::class, 'login'))->middleware(new Validate_login());
+$app->router->get('/login', array(User_managerment::class, 'login'))->middleware(new Validate_login());
 $app->run();
     // $app->router->debug();
