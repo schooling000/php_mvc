@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace app\core\router {
 
+    use app\core\middleware\Middleware;
     use app\core\request\Request;
-    use app\core\response\Response;
-    use app\core\middlewares\Middlewares;
+    use app\core\responsive\Responsive;
 
     class Router
     {
-
-        private Request $request;
-        private Response $response;
         private $routers = array();
+        private $request = null;
+        private $responsive = null;
 
-        public function __construct(Request &$request, Response &$response)
+        public function __construct(Request &$request, Responsive &$responsive)
         {
             $this->request = $request;
-            $this->response = $response;
+            $this->responsive = $responsive;
         }
 
-        public function get(?string $path, $callback): Router
+        public function get(string $path, $callback): Router
         {
-            $this->routers[] = array(
+            $this->routers[$path] = array(
                 'path' => $path,
                 'method' => 'GET',
                 'callback' => $callback,
@@ -31,10 +30,9 @@ namespace app\core\router {
             );
             return $this;
         }
-
-        public function post(?string $path, $callback): Router
+        public function post(string $path, $callback): Router
         {
-            $this->routers[] = array(
+            $this->routers[$path] = array(
                 'path' => $path,
                 'method' => 'POST',
                 'callback' => $callback,
@@ -42,19 +40,18 @@ namespace app\core\router {
             );
             return $this;
         }
-
-        public function middleware(Middlewares $middleware): Router
+        public function middleware(Middleware $middleware): Router
         {
-            $this->routers[array_key_last($this->routers)]['middleware'][] = $middleware;
+            $router = $this->routers[array_key_last($this->routers)]['middleware'][] = $middleware;
             return $this;
         }
 
-        public function execute(): void
+        public function run(): void
         {
             $callback = null;
-            $middlewares = array();
+            $middlewares = null;
 
-            $request = $this->request->getRequestParam();
+            $request = $this->request->getUrl();
 
             foreach ($this->routers as $router) {
                 if ($router['path'] == $request['path'] && $router['method'] == $request['method']) {
@@ -63,47 +60,18 @@ namespace app\core\router {
                 }
             }
 
-            if (empty($callback)) {
-                $this->response->render404Page($request['path']);
+            if (!isset($callback)) {
+                $this->responsive->render404Page();
                 exit;
             }
 
-            if (!empty($middlewares)) {
+            if(!empty($middlewares)){
                 foreach ($middlewares as $middleware) {
-                    if (!empty($middleware->executed($this->request, $callback))) {
-                        $request = $middleware->executed($this->request, $callback);
-                        break;
-                    }
+                    var_dump( $middleware->execute($request));
                 }
             }
-            
-
-            if (is_string($callback)) {
-                echo $callback;
-                return;
-            } elseif (is_callable($callback)) {
-                call_user_func($callback, $request['param']);
-                return;
-            } elseif (is_array($callback)) {
-                $controller = new $callback[0]($this->response);
-                $action = $callback[1];
-                call_user_func_array(array($controller, $action), $request['param']);
-            }
         }
 
-        public function debug(): void
-        {
-            echo "<pre>";
-            print_r($this->request);
-            print_r($this->response);
-            print_r($this->routers);
-            echo "</pre>";
-        }
-
-        public function __destruct()
-        {
-            unset($this->request);
-            unset($this->response);
-        }
+        public function __destruct() {}
     }
 }
