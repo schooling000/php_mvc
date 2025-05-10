@@ -8,8 +8,11 @@ namespace app\controller {
 
     class Home extends Controllers
     {
-        public function index() : void {
-            echo 'trang home';
+
+        public function index($data = array()): void
+        {
+            echo "Home:index()<\br>";
+            var_dump($data);
         }
     }
 }

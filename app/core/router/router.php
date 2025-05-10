@@ -77,8 +77,6 @@ namespace app\core\router {
                 }
             }
 
-            Help::dnd($currentRouter);
-
 
 
             if (is_string($currentRouter['callback'])) {
