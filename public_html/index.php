@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 use app\App;
 use app\help\Help;
-use app\middleware\User;
-use app\middleware\user_management\Validate_login;
-use app\controller\Home;
-use app\controller\User_managerment;
+use app\controller\Users;
+use app\middleware\validate\Login_validate;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . DS . "..");
@@ -27,7 +25,12 @@ spl_autoload_register(function ($className) {
 });
 
 $app = new App();
+<<<<<<< HEAD
 $app->router->get('/', array(User_managerment::class, 'view'));
 $app->router->post('/login', array(User_managerment::class, 'login'))->middleware(new Validate_login());
+=======
+$app->router->get('/', array(Users::class, 'index'));
+$app->router->post('/login',array(Users::class, 'login'))->middleware(new Login_validate());
+>>>>>>> fef022836acf039a22e10e4edf508029311c5e55
 $app->run();
     // $app->router->debug();

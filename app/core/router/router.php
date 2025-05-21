@@ -76,7 +76,13 @@ namespace app\core\router {
                     }
                 }
             }
+<<<<<<< HEAD
             
+=======
+
+
+
+>>>>>>> fef022836acf039a22e10e4edf508029311c5e55
             if (is_string($currentRouter['callback'])) {
                 return;
             } elseif (is_callable($currentRouter['callback'])) {
