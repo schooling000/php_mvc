@@ -15,6 +15,8 @@ namespace app\middleware\user_management {
 
         public function executed($request, $currentRouter): array
         {
+            Help::dnd($request);
+            exit();
             return array(
                 'callback' => array(User_managerment::class, 'view'),
                 'path' => '/',
