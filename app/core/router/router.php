@@ -72,6 +72,17 @@ namespace app\core\router {
                     var_dump( $middleware->execute($request));
                 }
             }
+
+            if (is_string($currentRouter['callback'])) {
+                return;
+            } elseif (is_callable($currentRouter['callback'])) {
+                call_user_func($currentRouter['callback'], $currentRouter['param']);
+                return;
+            } elseif (is_array($currentRouter['callback'])) {
+                $controller = new $currentRouter['callback'][0]($this->response);
+                $action = $currentRouter['callback'][1];
+                call_user_func_array(array($controller, $action), $currentRouter['param']);
+            }
         }
 
         public function __destruct() {}
