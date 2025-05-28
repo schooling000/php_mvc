@@ -27,11 +27,6 @@ spl_autoload_register(function ($className) {
 
 
 $app = new App();
-<<<<<<< HEAD
-$app->router->get('/',"dsafasdfsadf")->middleware(new ValidateMiddleware());
-=======
-$app->router->get('/', array(User_managerment::class, 'view'));
-$app->router->get('/login', array(User_managerment::class, 'login'))->middleware(new Validate_login());
->>>>>>> a34816a26c2a7a79a39bf8f4f97bb0bccad53323
-$app->run();
+$app->router->get('/',"dsfsdafs");
 $app->debug();
+$app->run();

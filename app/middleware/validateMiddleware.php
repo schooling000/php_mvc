@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace app\middleware {
 
-    use app\core\middleware\Middleware as Middleware;
     use app\core\request\Request;
+    use app\core\middleware\Middleware as Middleware;
 
     class ValidateMiddleware extends Middleware
     {

@@ -7,17 +7,29 @@ namespace app\core\request {
     class Request
     {
 
+        /**
+         * HÀM LẤY THÔNG TIN TỪ URL
+         * @return string
+         */
         private function getPath(): string
         {
             $strUrl = parse_url($_SERVER['REQUEST_URI']);
             return (!isset($strUrl['path']) || empty($strUrl['path']) ? '/' : $strUrl['path']);
         }
 
+        /**
+         * HÀM LẤY THÔNG TIN METHOD TỪ SERVER
+         * @return string
+         */
         private function getMethod(): string
         {
             return $_SERVER['REQUEST_METHOD'];
         }
 
+        /**
+         * HÀM LẤY CÁC DỮ LIỆU TỪ SERVER
+         * @return array
+         */
         private function getParam(): array
         {
             switch ($_SERVER['REQUEST_METHOD']) {
