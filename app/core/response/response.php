@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\core\response {
 
+    use app\help\Help;
     use Exception;
 
     class Response
@@ -11,6 +12,7 @@ namespace app\core\response {
 
         public function renderPage(string $pageName, $data = array()): void
         {
+            Help::dnd($data);
             $pathFileView = ROOT_PATH . DS . 'app' . DS . 'view' . DS . strtolower($pageName) . '.php';
             if(file_exists($pathFileView)){
                 require_once $pathFileView;
