@@ -22,9 +22,17 @@ namespace app\core\validate {
         public function phoneField(): void {}
         public function emailField(): void {}
 
-        public function fieldIsError(): bool {}
-        public function getMessageFieldError(): string {}
-        public function hasFieldError(): bool {}
+        public function fieldIsError($name): bool {}
+        public function getMessageFieldError($name): string {}
+        public function hasFieldError(): bool
+        {
+            foreach ($this->fields as $field) {
+                if ($field['hasError']) {
+                    return true;
+                }
+            }
+            return false;
+        }
         public function __destruct()
         {
             unset($this->fields);

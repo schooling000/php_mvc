@@ -59,7 +59,7 @@ namespace app\core\router {
             foreach ($this->routers as $router) {
                 if ($router['path'] == $request['path'] && $router['method'] == $request['method']) {
                     $routerIsSelect = $router;
-                    $routerIsSelect['data'] = $request["param"];
+                    $routerIsSelect['param'] = array('data'=>$request["param"]);
                 }
             }
 
@@ -87,7 +87,7 @@ namespace app\core\router {
             } elseif (is_array($routerIsSelect['callback'])) {
                 $controller = new $routerIsSelect['callback'][0]($this->response);
                 $action = $routerIsSelect['callback'][1];
-                $param = $routerIsSelect['data'];
+                $param = $routerIsSelect['param'];
                 call_user_func_array(array($controller, $action), $param);
             }
         }

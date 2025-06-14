@@ -14,14 +14,28 @@ namespace app\middleware\validate {
 
         public function executed(array $router): array
         {
-            help::dnd($router);
+            echo '<b>Go In Login_validate->executed()</b>';
+            Help::dnd($router);
+            $validate = new Validate();
+            $validate->addField('account', $router['param']['data']['account']);
+            $validate->addField('password', $router['param']['data']['password']);
+            $validate->textField('account');
+            $validate->textField('password');
 
-            $router['path'] = '/';
-            $router['method'] = 'GET';
-            $router['callback'] = array(Login::class, 'index');
-            $router['data'] = array('data' => [
-                'accountMesssage'=>'Trường này không được trống'
-            ]);
+            if ($validate->hasFieldError()) {
+                $router = array(
+                    'path' => '/',
+                    'method' => 'GET',
+                    'callback' => array(Login::class, 'index'),
+                    'param' => array(
+                        'data' => array(
+                            'messageAccount' => $validate->getMessageFieldError('account'),
+                            'messagePassword' => $validate->getMessageFieldError('password')
+                        )
+                    )
+                );
+            }
+            echo '<b>Go Out Login_validate->executed()</b></br>';
             return $router;
         }
     }

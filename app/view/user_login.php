@@ -29,6 +29,11 @@ $messageForm = !empty($data['messageForm']) ? $data['messageForm'] : '';
         <div class="w3-container w3-margin-top w3-margin-bottom">
             <button class="w3-button w3-border w3-round">Đăng nhập</button>
         </div>
+        <?php if (!empty($messageForm)): ?>
+            <div class="w3-container w3-margin-top w3-margin-bottom">
+                <span class="w3-small w3-text-red"><?php echo $messageForm; ?></span>
+            </div>
+        <?php endif; ?>
     </form>
 </body>
 

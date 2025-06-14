@@ -12,7 +12,6 @@ namespace app\core\response {
 
         public function renderPage(string $pageName, $data = array()): void
         {
-            Help::dnd($data);
             $pathFileView = ROOT_PATH . DS . 'app' . DS . 'view' . DS . strtolower($pageName) . '.php';
             if(file_exists($pathFileView)){
                 require_once $pathFileView;
