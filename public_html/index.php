@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\App;
 use app\help\Help;
 use app\controller\Users;
+use app\controller\Login;
 use app\middleware\validate\Login_validate;
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -28,6 +29,7 @@ spl_autoload_register(function ($className) {
 
 
 $app = new App();
-$app->router->get('/',"dsfsdafs");
+$app->router->get('/',array(Login::class, 'index'));
+$app->router->post('/login', array(Login::class, 'login'))->middleware(new Login_validate());
 $app->run();
 $app->debug();
