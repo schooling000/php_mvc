@@ -48,9 +48,7 @@ namespace app\core\router {
 
         public function run(): void
         {
-            $callback = null;
-            $middlewares = null;
-
+            $currentRouter = array();
             $request = $this->request->getUrl();
 
             foreach ($this->routers as $router) {
@@ -60,29 +58,28 @@ namespace app\core\router {
                 }
             }
 
-            $callback = $cur
-
-            if (!isset($callback)) {
+            if (!isset($currentRouter['callback'])) {
                 $this->responsive->render404Page();
-                exit;
             }
 
-            if(!empty($middlewares)){
-                foreach ($middlewares as $middleware) {
-                    var_dump( $middleware->execute($request));
+            if(!empty($currentRouter['middleware'])){
+                foreach ($currentRouter['middleware'] as $middleware) {
+                    if(!empty($middleware->execute($currentRouter))){
+
+                    }
                 }
             }
 
-            if (is_string($currentRouter['callback'])) {
-                return;
-            } elseif (is_callable($currentRouter['callback'])) {
-                call_user_func($currentRouter['callback'], $currentRouter['param']);
-                return;
-            } elseif (is_array($currentRouter['callback'])) {
-                $controller = new $currentRouter['callback'][0]($this->response);
-                $action = $currentRouter['callback'][1];
-                call_user_func_array(array($controller, $action), $currentRouter['param']);
-            }
+            // if (is_string($currentRouter['callback'])) {
+            //     return;
+            // } elseif (is_callable($currentRouter['callback'])) {
+            //     call_user_func($currentRouter['callback'], $currentRouter['param']);
+            //     return;
+            // } elseif (is_array($currentRouter['callback'])) {
+            //     $controller = new $currentRouter['callback'][0]($this->response);
+            //     $action = $currentRouter['callback'][1];
+            //     call_user_func_array(array($controller, $action), $currentRouter['param']);
+            // }
         }
 
         public function __destruct() {}
