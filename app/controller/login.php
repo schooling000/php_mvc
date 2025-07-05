@@ -12,13 +12,10 @@ namespace app\controller {
 
         public function index($data = array()): void
         {
-            Help::dnd($data);
-            $this->response->renderPage('user_login', $data);
+            $this->responsive->renderPage('user_login', $data);
         }
 
         public function login($data = array()) : void {
-            echo 'go in Login->login()';
-            Help::dnd($data);
         }
     }
 }

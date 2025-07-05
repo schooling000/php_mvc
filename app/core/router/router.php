@@ -50,7 +50,7 @@ namespace app\core\router {
         {
             $routerIsSelect = array();
 
-            $request = $this->request->getRequestParam();
+            $request = $this->request->getUrl();
 
             foreach ($this->routers as $router) {
                 if ($router['path'] == $request['path'] && $router['method'] == $request['method']) {
@@ -60,7 +60,7 @@ namespace app\core\router {
             }
 
             if (!isset($routerIsSelect['callback']) ||  empty($routerIsSelect['callback'])) {
-                $this->response->render404Page($request['path']);
+                $this->responsive->render404Page($request['path']);
                 exit;
             }
 
@@ -81,7 +81,7 @@ namespace app\core\router {
                 call_user_func($routerIsSelect['callback'], $routerIsSelect['data']);
                 return;
             } elseif (is_array($routerIsSelect['callback'])) {
-                $controller = new $routerIsSelect['callback'][0]($this->response);
+                $controller = new $routerIsSelect['callback'][0]($this->responsive);
                 $action = $routerIsSelect['callback'][1];
                 $param = $routerIsSelect['param'];
                 call_user_func_array(array($controller, $action), $param);

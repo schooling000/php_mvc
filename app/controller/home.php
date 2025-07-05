@@ -6,7 +6,7 @@ namespace app\controller {
 
     use app\core\controllers\Controllers;
 
-    class Home extends Controllers
+    class Home
     {
 
         public function index($data = array()): void
