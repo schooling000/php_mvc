@@ -7,6 +7,7 @@ use app\help\Help;
 use app\controller\Users;
 use app\controller\Login;
 use app\middleware\validate\Login_validate;
+use app\core\responsive\Responsive;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . DS."..");
