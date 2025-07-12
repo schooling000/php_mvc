@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app\middleware\validate {
 
-    use app\help\Help;
+    use app\core\help\Help;
     use app\controller\Login;
     use app\core\validate\Validate;
     use app\core\middleware\Middleware;
@@ -15,11 +15,12 @@ namespace app\middleware\validate {
         public function execute(array $router): array
         {
             echo '<b>Go In Login_validate->executed()</b>';
+            Help::dnd($router);
             $validate = new Validate();
-            $validate->addField('account', $router['param']['data']['account']);
-            $validate->addField('password', $router['param']['data']['password']);
-            $validate->textField('account');
-            $validate->textField('password');
+            $validate->addField('E_Account', $router['param']['data']['E_Account']);
+            $validate->addField('E_Password', $router['param']['data']['E_Password']);
+            $validate->textField('E_Account',true,5);
+            $validate->textField('E_Password');
 
             if ($validate->hasFieldError()) {
                 $router = array(
@@ -28,8 +29,8 @@ namespace app\middleware\validate {
                     'callback' => array(Login::class, 'index'),
                     'param' => array(
                         'data' => array(
-                            'messageAccount' => $validate->getMessageFieldError('account'),
-                            'messagePassword' => $validate->getMessageFieldError('password')
+                            'messageAccount' => $validate->getMessageFieldError('E_Account'),
+                            'messagePassword' => $validate->getMessageFieldError('E_Password')
                         )
                     )
                 );

@@ -11,9 +11,7 @@ namespace app\core\responsive {
 
         public function renderPage(string $strPageName, $data = array()): void
         {
-            echo '<pre>';
-            var_dump($data);
-            echo '<\pre>';
+            require_once ROOT_PATH.DS.'app'.DS.'view'.DS.'body'.DS.$strPageName.'.php';
         }
         public function render404Page(): void
         {

@@ -12,10 +12,11 @@ namespace app\controller {
 
         public function index($data = array()): void
         {
-            $this->responsive->renderPage('user_login', $data);
+            $this->responsive->renderPage('login', $data);
         }
 
         public function login($data = array()) : void {
+            
         }
     }
 }

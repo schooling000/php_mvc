@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\core\router {
 
+    use app\core\help\Help;
     use app\core\request\Request;
     use app\core\middleware\Middleware;
     use app\core\responsive\Responsive;
@@ -66,7 +67,7 @@ namespace app\core\router {
 
             if (!empty($routerIsSelect['middleware'])) {
                 foreach ($routerIsSelect['middleware'] as $middleware) {
-                    $checkHasError = $middleware->executed($routerIsSelect);
+                    $checkHasError = $middleware->execute($routerIsSelect);
                     if (!empty($checkHasError)) {
                         $routerIsSelect = $checkHasError;
                         break;
