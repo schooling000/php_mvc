@@ -9,6 +9,7 @@ use app\controller\Login;
 use app\core\db\DB;
 use app\middleware\validate\Login_middleware;
 use app\core\responsive\Responsive;
+use app\model\User;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . DS . "..");
@@ -41,4 +42,3 @@ $app->router->get('/', array(Login::class, 'index'));
 $app->router->post('/login', array(Login::class, 'login'))->middleware(new Login_middleware());
 $app->run();
 // $app->debug();
-$db = new DB();

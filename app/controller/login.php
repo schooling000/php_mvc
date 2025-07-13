@@ -16,7 +16,9 @@ namespace app\controller {
         }
 
         public function login($data = array()) : void {
-            
+            var_dump($data);
+            $user = $this->getModel('user');
+            var_dump($user->getUser('locht','12345'));
         }
     }
 }

@@ -4,8 +4,6 @@
 
     namespace app\core\models{
 
-        abstract class Models{
-
-            public function select() : array {};
+     class Models{
         }
     }
